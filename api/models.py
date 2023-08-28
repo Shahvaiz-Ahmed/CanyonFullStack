@@ -16,9 +16,8 @@ class Product(models.Model):
 
     LotSize = models.IntegerField(blank=True, null=True)
 
-    Blocked = models.BooleanField(blank=True, null=True)
-    picture1=models.CharField(max_length=200, blank=True, null=True)
-    picture2=models.CharField(max_length=200, blank=True, null=True)
+    Blocked = models.CharField(max_length=50, blank=True, null=True)
+
     CompoundNumber = models.CharField(max_length=50, blank=True, null=True)
 
     Material = models.CharField(max_length=50, blank=True, null=True)
@@ -41,7 +40,7 @@ class Product(models.Model):
 
     CureType = models.CharField(max_length=50, blank=True, null=True)
 
-    Encapsulated = models.BooleanField(blank=True, null=True)
+    Encapsulated = models.CharField(max_length=50, blank=True, null=True)
 
     Brand = models.CharField(max_length=50, blank=True, null=True)
 
@@ -49,55 +48,55 @@ class Product(models.Model):
 
     MaterialNotes = models.TextField(blank=True, null=True)
 
-    CleanRoomManufactured = models.BooleanField(blank=True, null=True)
+    CleanRoomManufactured = models.CharField(max_length=50, blank=True, null=True)
 
     FDAType = models.CharField(max_length=50, blank=True, null=True)
 
-    USPClassVI = models.BooleanField(blank=True, null=True)
+    USPClassVI = models.CharField(max_length=50, blank=True, null=True)
 
-    USPClassVI87 = models.BooleanField(blank=True, null=True)
+    USPClassVI87 = models.CharField(max_length=50, blank=True, null=True)
 
-    USPClassVI88 = models.BooleanField(blank=True, null=True)
+    USPClassVI88 = models.CharField(max_length=50, blank=True, null=True)
 
-    A3Sanitary = models.BooleanField(blank=True, null=True)
+    A3Sanitary = models.CharField(max_length=50, blank=True, null=True)
 
-    KTW = models.BooleanField(blank=True, null=True)
+    KTW = models.CharField(max_length=50, blank=True, null=True)
 
-    WRAS = models.BooleanField(blank=True, null=True)
+    WRAS = models.CharField(max_length=50, blank=True, null=True)
 
-    ULListed = models.BooleanField(blank=True, null=True)
+    ULListed = models.CharField(max_length=50, blank=True, null=True)
 
     ULRating = models.CharField(max_length=50, blank=True, null=True)
 
-    MetalDetectable = models.BooleanField(blank=True, null=True)
+    MetalDetectable = models.CharField(max_length=50, blank=True, null=True)
 
-    NSF61 = models.BooleanField(blank=True, null=True)
+    NSF61 = models.CharField(max_length=50, blank=True, null=True)
 
-    NSF51 = models.BooleanField(blank=True, null=True)
+    NSF51 = models.CharField(max_length=50, blank=True, null=True)
 
-    AntiExplosiveDecompression = models.BooleanField(blank=True, null=True)
+    AntiExplosiveDecompression = models.CharField(max_length=50, blank=True, null=True)
 
-    NACETM0297 = models.BooleanField(blank=True, null=True)
+    NACETM0297 = models.CharField(max_length=50, blank=True, null=True)
 
-    NORSOKM710 = models.BooleanField(blank=True, null=True)
+    NORSOKM710 = models.CharField(max_length=50, blank=True, null=True)
 
-    UltraLowTemperature = models.BooleanField(blank=True, null=True)
+    UltraLowTemperature = models.CharField(max_length=50, blank=True, null=True)
 
-    UltraHighTemperature = models.BooleanField(blank=True, null=True)
+    UltraHighTemperature = models.CharField(max_length=50, blank=True, null=True)
 
-    SteamResistant = models.CharField(max_length=25,blank=True, null=True)
+    SteamResistant = models.CharField(max_length=50, blank=True, null=True)
 
-    UltraSteamResistant = models.CharField(max_length=25,blank=True, null=True)
+    UltraSteamResistant = models.CharField(max_length=50, blank=True, null=True)
 
-    InternallyLubricated = models.CharField(max_length=25,blank=True, null=True)
+    InternallyLubricated = models.CharField(max_length=50, blank=True, null=True)
 
-    ExternallyLubricated =models.CharField(max_length=25,blank=True, null=True)
+    ExternallyLubricated = models.CharField(max_length=50, blank=True, null=True)
 
-    ConductiveFiller = models.CharField(max_length=25,blank=True, null=True)
+    ConductiveFiller = models.CharField(max_length=50, blank=True, null=True)
 
-    LowCompressionSet = models.CharField(max_length=25,blank=True, null=True)
+    LowCompressionSet = models.CharField(max_length=50, blank=True, null=True)
 
-    CrossSectionalGeometry = models.CharField(max_length=25,blank=True, null=True)
+    CrossSectionalGeometry = models.CharField(max_length=50, blank=True, null=True)
 
     CrossSectionalDiameter = models.CharField(max_length=50, blank=True, null=True)
 
@@ -112,6 +111,10 @@ class Product(models.Model):
     SizeStandard = models.CharField(max_length=50, blank=True, null=True)
 
     Online = models.CharField(max_length=15, blank=True, null=True)
+
+    picture1 = models.CharField(max_length=150, blank=True, null=True)
+
+    picture2 = models.CharField(max_length=150, blank=True, null=True)
 
     def __str__(self):
         return self.ItemNo

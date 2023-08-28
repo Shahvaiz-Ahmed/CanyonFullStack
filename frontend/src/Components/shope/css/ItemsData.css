@@ -1,0 +1,18 @@
+
+
+.css-5wly58-MuiDataGrid-root .MuiDataGrid-columnHeader--sortable {
+    background-color: #182E49;
+    color: white;
+  }
+
+  .MuiDataGrid-headerCell .MuiDataGrid-iconButton {
+    color: white;
+  }
+
+  .MuiDataGrid-root .MuiDataGrid-row:nth-child(even) {
+    background-color: lightgray; /* or your desired grey color */
+  }
+
+  .css-ptiqhd-MuiSvgIcon-root{
+    color: white;
+  }
