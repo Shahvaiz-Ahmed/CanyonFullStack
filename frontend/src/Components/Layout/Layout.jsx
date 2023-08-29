@@ -1,6 +1,6 @@
 import React from 'react'
-import Header from '../Header/Header'
-import Footer from '../Footer/Footer'
+import Header from '../Header/Header.jsx'
+import Footer from '../Footer/Footer.jsx'
 const Layout = ({children}) => {
     // const {name} = useContext(UserContext)
     return (

@@ -1,18 +1,18 @@
 import React, { useContext, useState, useEffect } from "react";
 import "./css/shopleft.css";
 import { AiFillCaretDown, AiFillCaretUp } from "react-icons/ai";
-import CheckboxList from "./CheckboxeList";
-import SliderComponent from "./SliderComponent";
-import Color from "./Color";
-import Brand from "./Brand";
-import DurometerRange_Compliance from "./DurometerRange_Compliance";
-import { UserContext } from "../../UserContext";
-// import dimensions from "../../Static/Dimensions.jpg";
-import CartPopup from "../CartPage/CartPopup";
+import CheckboxList from "./CheckboxeList.jsx";
+import SliderComponent from "./SliderComponent.jsx";
+import Color from "./Color.jsx";
+import Brand from "./Brand.jsx";
+import DurometerRange_Compliance from "./DurometerRange_Compliance.jsx";
+import { UserContext } from "../../../../../../Downloads/Canyon_Full_Stack/canyoncomponents/src/UserContext.jsx";
+import dimensions from "../../../../../../Downloads/Canyon_Full_Stack/canyoncomponents/src/Static/Dimensions.jpg";
+import CartPopup from "../CartPage/CartPopup.jsx";
 import zIndex from "@mui/material/styles/zIndex";
-import CheckboxeListSub from "./ExpandableComponents/CheckBoxListSub";
+import CheckboxeListSub from "./ExpandableComponents/CheckBoxListSub.jsx";
 import { Button } from "@mui/material";
-import Table from "./StandardTable";
+import Table from "./StandardTable.jsx";
 
 const ShopLeft = () => {
   const [isCartopen, setisCartopen] = useState(null);

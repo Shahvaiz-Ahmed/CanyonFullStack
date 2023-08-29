@@ -1,10 +1,10 @@
 import React from "react";
 import { FaTimes } from "react-icons/fa";
 import "./Drawer.css";
-import Sleft from "./ShopLeft";
+import Sleft from "./ShopLeft.jsx";
 import { useContext } from "react";
 
-import { UserContext } from "../../UserContext";
+import { UserContext } from "../../../../../../Downloads/Canyon_Full_Stack/canyoncomponents/src/UserContext.jsx";
 
 function Drawer() {
 

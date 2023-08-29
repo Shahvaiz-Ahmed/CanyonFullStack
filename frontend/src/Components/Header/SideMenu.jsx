@@ -2,7 +2,7 @@ import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import "./SideMenu.css";
 import ClearIcon from "@mui/icons-material/Clear";
 import React, { useContext } from "react";
-import { UserContext } from "../../UserContext";
+import { UserContext } from "../../../../../../Downloads/Canyon_Full_Stack/canyoncomponents/src/UserContext.jsx";
 
 function SideMenu() {
   const {

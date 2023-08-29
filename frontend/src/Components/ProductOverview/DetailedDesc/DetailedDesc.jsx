@@ -1,6 +1,6 @@
 import React from "react";
 import "./DetailedDesc.css";
-// import pdf from "../../../Static/Images/pdf.webp";
+import pdf from "../../../../../../../Downloads/Canyon_Full_Stack/canyoncomponents/src/Static/Images/pdf.webp";
 
 function DetailedDesc(props) {
   const rowStyle = {

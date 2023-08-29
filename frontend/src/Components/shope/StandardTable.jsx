@@ -7,7 +7,7 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { TableVirtuoso } from "react-virtuoso";
 import Checkbox from "@mui/material/Checkbox"; // Step 1
-import { UserContext } from "../../UserContext";
+import { UserContext } from "../../../../../../Downloads/Canyon_Full_Stack/canyoncomponents/src/UserContext.jsx";
 
 function createData(id, checkbox, dessert, calories, fat, carbs, protein) {
   return { id, checkbox, dessert, calories, fat, carbs, protein };

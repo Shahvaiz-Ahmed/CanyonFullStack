@@ -1,8 +1,8 @@
 import React from "react";
-import "../REquestQutoe/request.css";
+import "./request.css";
 import { AiOutlineCloseCircle } from "react-icons/ai";
 import { useNavigate, useParams } from "react-router-dom";
-import Layout from "../Layout/Layout";
+import Layout from "../Layout/Layout.jsx";
 import { Button } from "@mui/material";
 const RequestQuote = (props) => {
   const { productid } = useParams();

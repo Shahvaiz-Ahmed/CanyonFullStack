@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import DurometerRange_Compliance from "../DurometerRange_Compliance";
+import DurometerRange_Compliance from "../DurometerRange_Compliance.jsx";
 
 const HardnessExpand = () => {
   const [isExpanded, setIsExpanded] = useState(false);

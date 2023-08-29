@@ -1,5 +1,5 @@
 import React from 'react'
-import ShopLeft from "./ShopLeft";
+import ShopLeft from "./ShopLeft.jsx";
 import '../css/filter.css'
 const Filter = (props) => {
   

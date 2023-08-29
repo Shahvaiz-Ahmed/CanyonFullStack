@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import RecomendedItemCard from "./RecomendedItemCard";
+import RecomendedItemCard from "./RecomendedItemCard.jsx";
 import "./RecomendedItems.css";
 import { CarouselWrapper } from "react-pretty-carousel";
 

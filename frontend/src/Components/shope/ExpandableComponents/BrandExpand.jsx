@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Brand from "../Brand";
+import Brand from "../Brand.jsx";
 const BrandExpand = () => {
   const [isExpanded, setIsExpanded] = useState(false);
 

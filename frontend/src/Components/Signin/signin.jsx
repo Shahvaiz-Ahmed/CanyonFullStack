@@ -11,12 +11,12 @@ import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-import Header from "../Header/Header";
-import Footer from "../Footer/Footer";
+import Header from "../Header/Header.jsx";
+import Footer from "../Footer/Footer.jsx";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
-import { UserContext } from "../../UserContext";
+import { UserContext } from "../../../../../../Downloads/Canyon_Full_Stack/canyoncomponents/src/UserContext.jsx";
 
 // TODO remove, this demo shouldn't need to reset the theme.
 

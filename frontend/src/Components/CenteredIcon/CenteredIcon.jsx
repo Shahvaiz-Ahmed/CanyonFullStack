@@ -13,7 +13,7 @@ function CenteredIcon({ onDataLoaded }) {
 
   return (
     <div className={`center-icon ${showIcon ? 'visible' : 'hidden'}`}>
-      <img src={require('../../Static/Images/logo.png')} alt="Centered Icon" />
+      <img src={require('../../../../../../Downloads/Canyon_Full_Stack/canyoncomponents/src/Static/Images/logo.png')} alt="Centered Icon" />
     </div>
   );
 }

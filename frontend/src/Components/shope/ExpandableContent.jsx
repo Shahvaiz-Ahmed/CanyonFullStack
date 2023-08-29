@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import dimensions from "../../Static/Dimensions.jpg";
+import dimensions from "../../../../../../Downloads/Canyon_Full_Stack/canyoncomponents/src/Static/Dimensions.jpg";
 
 const ExpandableContent = () => {
   const [isExpanded, setIsExpanded] = useState(false);

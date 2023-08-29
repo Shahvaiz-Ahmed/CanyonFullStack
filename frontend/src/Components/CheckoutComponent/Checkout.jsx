@@ -10,12 +10,12 @@ import StepLabel from "@mui/material/StepLabel";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import Address from "./Address";
-import Payment from "./Payment";
-import Review from "./Review";
-import Layout from "../Layout/Layout";
+import Address from "./Address.jsx";
+import Payment from "./Payment.jsx";
+import Review from "./Review.jsx";
+import Layout from "../Layout/Layout.jsx";
 import { useContext } from "react";
-import { UserContext } from "../../UserContext";
+import { UserContext } from "../../../../../../Downloads/Canyon_Full_Stack/canyoncomponents/src/UserContext.jsx";
 import axios from "axios";
 import { toast } from "react-hot-toast";
 

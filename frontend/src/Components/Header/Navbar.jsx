@@ -5,7 +5,7 @@ import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
-import { UserContext } from "../../UserContext";
+import { UserContext } from "../../../../../../Downloads/Canyon_Full_Stack/canyoncomponents/src/UserContext.jsx";
 import Typography from "@mui/material/Typography";
 import InputBase from "@mui/material/InputBase";
 import Button from "@mui/material/Button";
@@ -13,7 +13,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import { Link } from "react-router-dom";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-// import logo from "../../Static/Images/logo.png";
+import logo from "../../../../../../Downloads/Canyon_Full_Stack/canyoncomponents/src/Static/Images/logo.png";
 import MenuSharpIcon from "@mui/icons-material/MenuSharp";
 import { Menu, MenuItem } from "@mui/material";
 
