@@ -92,11 +92,11 @@ function ProductComponent() {
               </p>
               <BasicTable rows={row} />
 
-              <CheckPrice
+              {/* <CheckPrice
                         rows={row}
                         // filteredRowsquantity={filteredRowsquantity}
                         
-                      />
+                      /> */}
             </div>
           </div>
           <DetailedDesc rows={row}/>
