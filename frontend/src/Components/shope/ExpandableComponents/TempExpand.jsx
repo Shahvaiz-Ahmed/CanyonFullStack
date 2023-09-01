@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import SliderComponent from "../SliderComponent.jsx";
+import SliderComponent from "../SliderComponent";
 const TempExpand = () => {
   const [isExpanded, setIsExpanded] = useState(false);
 

@@ -5,13 +5,13 @@ import {
   AiFillMinusCircle,
   AiFillDelete,
 } from "react-icons/ai";
-import product from "../../../../../../Downloads/Canyon_Full_Stack/canyoncomponents/src/Static/Images/product.png";
+import product from "../../Static/Images/product.png";
 import { Link, useNavigate } from "react-router-dom";
 import "./CartPage.css";
 import ShoppingBagIcon from "@mui/icons-material/ShoppingBag";
-import Layout from "../Layout/Layout.jsx";
+import Layout from "../Layout/Layout";
 import { useContext } from "react";
-import { UserContext } from "../../../../../../Downloads/Canyon_Full_Stack/canyoncomponents/src/UserContext.jsx";
+import { UserContext } from "../../UserContext";
 import { Button } from "@mui/material";
 
 const CartPopup = () => {

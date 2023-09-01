@@ -1,31 +1,8 @@
-import React, {  useContext } from "react";
-// import axios from "axios";
-import { UserContext  } from "../../../../../../../Downloads/Canyon_Full_Stack/canyoncomponents/src/UserContext.jsx";
+import React, { useContext } from "react";
+import { UserContext } from "../../../UserContext";
 
 const CheckboxeListSub = () => {
-  const { submaterialArray, setselectedSubmaterial} = useContext(UserContext);
-  // const [brands, setBrands] = useState([]);
-
-  // useEffect(() => {
-  //   axios
-  //     .get(
-  //       "https://api.businesscentral.dynamics.com/v2.0/4e94f06f-db01-47eb-aff3-7a284b01dd84/Sandbox/ODataV4/Company(%27My%20Company%27)/itemattributee",
-  //       {
-  //         headers: {
-  //           Authorization: `Bearer ${accessToken}`,
-  //         },
-  //         params: {
-  //           $filter: "Name eq 'Material'",
-  //         },
-  //       }
-  //     )
-  //     .then((res) => {
-  //       setBrands(res.data.value[0].Values.split(","));
-  //     })
-  //     .catch((error) => {
-  //       console.error("Error retrieving brands:", error);
-  //     });
-  // }, [accessToken]);
+  const { submaterialArray, setselectedSubmaterial } = useContext(UserContext);
 
   const handleCheckboxChange = (event) => {
     const itemId = event.target.value;
@@ -38,20 +15,33 @@ const CheckboxeListSub = () => {
     }
   };
 
+  const submaterialItems = [
+    "Spring Steel",
+    "10 - 29 (Softest)",
+    "30 - 50 (Very Soft)",
+    "51 - 65 (Soft)",
+    "66 - 75 (Medium)",
+    "76 - 85 (Hard)",
+    "86 - 95 (Very Hard)",
+    "Over 96 (Hardest)",
+  ];
+
   return (
-    <div style={{
-      position: 'relative',
-      top: 0,
-      bottom: 0
-    }} >
-      {submaterialArray && Object.entries(submaterialArray).map(([index, brand]) => (
+    <div
+      style={{
+        position: "relative",
+        top: 0,
+        bottom: 0,
+      }}
+    >
+      {submaterialItems.map((item, index) => (
         <div key={index}>
           <input
             type="checkbox"
-            value={brand}
+            value={item}
             onChange={handleCheckboxChange}
           />
-          <label>{brand}</label>
+          <label>{item}</label>
         </div>
       ))}
     </div>
@@ -59,4 +49,3 @@ const CheckboxeListSub = () => {
 };
 
 export default CheckboxeListSub;
-

@@ -1,235 +1,456 @@
 import * as React from "react";
 import { DataGrid } from "@mui/x-data-grid";
-import { UserContext } from "../../../../../../Downloads/Canyon_Full_Stack/canyoncomponents/src/UserContext.jsx";
+import { UserContext } from "../../UserContext";
 import { useContext } from "react";
 import { useEffect } from "react";
-import './css/ItemsData.css'
+import "./css/ItemsData.css";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-const rows = [
-  {
-    id: 1,
-    code: "Snow",
-    population: "Jon",
-    size: 35,
-    density: 47,
-    hardness: 57,
-  },
-  {
-    id: 2,
-    code: "Lannister",
-    population: "Cersei",
-    size: 42,
-    density: 45,
-    hardness: 47,
-  },
-  {
-    id: 3,
-    code: "Lannister",
-    population: "Jaime",
-    size: 45,
-    density: 42,
-    hardness: 97,
-  },
-  {
-    id: 4,
-    code: "Stark",
-    population: "Arya",
-    size: 16,
-    density: 43,
-    hardness: 47,
-  },
-  {
-    id: 5,
-    code: "Targaryen",
-    population: "Daenerys",
-    size: 23,
-    density: 43,
-    hardness: 17,
-  },
-  {
-    id: 6,
-    code: "Melisandre",
-    population: "Ehtisham Bhai",
-    size: 150,
-    density: 73,
-    hardness: 7,
-  },
-  {
-    id: 7,
-    code: "Clifford",
-    population: "Ferrara",
-    size: 44,
-    density: 43,
-    hardness: 77,
-  },
-  {
-    id: 8,
-    code: "Frances",
-    population: "Rossini",
-    size: 36,
-    density: 48,
-    hardness: 67,
-  },
-  {
-    id: 9,
-    code: "Roxie",
-    population: "Harvey",
-    size: 65,
-    density: 43,
-    hardness: 47,
-  },
-];
+import { products } from "../../Data/API";
+// const rows =[
+//   {
+//     id: 1,
+//     SearchDescription: 1123,
+//     price: "$210",
+//     qnty: 20,
+//     Material: "FFKM (Kalrez®, CanRez™, Perfluoroelastomer)",
+//     Color: "Red",
+//     Durometer: 75,
+//     DurometerScale: "Shore A",
+//     CrossSectionalGeometry: "O-Ring",
+//     SizeStandard: 34,
+//     CrossSectionalDiameter: 1.23,
+//     InsideDiameter: 2.12,
+//     Description: "Kalrez, KP4079, FFKM, Black, 75A",
+//     HighTemperature: 216,
+//     LowTemperature: 13,
+//   },
+//   {
+//     id: 2,
+//     SearchDescription: 1234,
+//     price: 0,
+//     qnty: 0,
+//     Material: "FFKM (Kalrez®, CanRez™, Perfluoroelastomer)",
+//     Color: "Red",
+//     Durometer: 75,
+//     DurometerScale: "Shore A",
+//     CrossSectionalGeometry: "O-Ring",
+//     SizeStandard: 34,
+//     CrossSectionalDiameter: 1.23,
+//     InsideDiameter: 2.12,
+//     Description: "Kalrez, KP4079, FFKM, Black, 75A",
+//     HighTemperature: 216,
+//     LowTemperature: 13,
+//   },
+//   {
+//     id: 3,
+//     SearchDescription: 1434,
+//     price: "$240",
+//     qnty: 20,
+//     Material: "FFKM (Kalrez®, CanRez™, Perfluoroelastomer)",
+//     Color: "Red",
+//     Durometer: 75,
+//     DurometerScale: "Shore A",
+//     CrossSectionalGeometry: "O-Ring",
+//     SizeStandard: 34,
+//     CrossSectionalDiameter: 1.23,
+//     InsideDiameter: 2.12,
+//     Description: "Kalrez, KP4079, FFKM, Black, 75A",
+//     HighTemperature: 216,
+//     LowTemperature: 13,
+//   },
+//   {
+//     id: 4,
+//     SearchDescription: 1654,
+//     price: "$500",
+//     qnty: 20,
+//     Material: "FFKM (Kalrez®, CanRez™, Perfluoroelastomer)",
+//     Color: "Red",
+//     Durometer: 75,
+//     DurometerScale: "Shore A",
+//     CrossSectionalGeometry: "O-Ring",
+//     SizeStandard: 34,
+//     CrossSectionalDiameter: 1.23,
+//     InsideDiameter: 2.12,
+//     Description: "Kalrez, KP4079, FFKM, Black, 75A",
+//     HighTemperature: 216,
+//     LowTemperature: 13,
+//   },
+//   {
+//     id: 5,
+//     SearchDescription: 1543,
+//     price: "$100",
+//     qnty: 20,
+//     Material: "FFKM (Kalrez®, CanRez™, Perfluoroelastomer)",
+//     Color: "Red",
+//     Durometer: 75,
+//     DurometerScale: "Shore A",
+//     CrossSectionalGeometry: "O-Ring",
+//     SizeStandard: 34,
+//     CrossSectionalDiameter: 1.23,
+//     InsideDiameter: 2.12,
+//     Description: "Kalrez, KP4079, FFKM, Black, 75A",
+//     HighTemperature: 216,
+//     LowTemperature: 13,
+//   },
+//   {
+//     id: 6,
+//     SearchDescription: 1457,
+//     price: "$300",
+//     qnty: 20,
+//     Material: "FFKM (Kalrez®, CanRez™, Perfluoroelastomer)",
+//     Color: "Red",
+//     Durometer: 75,
+//     DurometerScale: "Shore A",
+//     CrossSectionalGeometry: "O-Ring",
+//     SizeStandard: 34,
+//     CrossSectionalDiameter: 1.23,
+//     InsideDiameter: 2.12,
+//     Description: "Kalrez, KP4079, FFKM, Black, 75A",
+//     HighTemperature: 216,
+//     LowTemperature: 13,
+//   },
+//   {
+//     id: 7,
+//     SearchDescription: 1753,
+//     price: "$200",
+//     qnty: 20,
+//     Material: "FFKM (Kalrez®, CanRez™, Perfluoroelastomer)",
+//     Color: "Red",
+//     Durometer: 75,
+//     DurometerScale: "Shore A",
+//     CrossSectionalGeometry: "O-Ring",
+//     SizeStandard: 34,
+//     CrossSectionalDiameter: 1.23,
+//     InsideDiameter: 2.12,
+//     Description: "Kalrez, KP4079, FFKM, Black, 75A",
+//     HighTemperature: 216,
+//     LowTemperature: 13,
+//   },
+//   {
+//     id: 8,
+//     SearchDescription: 1876,
+//     price: 0,
+//     qnty: 0,
+//     Material: "FFKM (Kalrez®, CanRez™, Perfluoroelastomer)",
+//     Color: "Red",
+//     Durometer: 75,
+//     DurometerScale: "Shore A",
+//     CrossSectionalGeometry: "O-Ring",
+//     SizeStandard: 34,
+//     CrossSectionalDiameter: 1.23,
+//     InsideDiameter: 2.12,
+//     Description: "Kalrez, KP4079, FFKM, Black, 75A",
+//     HighTemperature: 216,
+//     LowTemperature: 13,
+//   },
+//   {
+//     id: 9,
+//     SearchDescription: 1654,
+//     price: "$200",
+//     qnty: 20,
+//     Material: "FFKM (Kalrez®, CanRez™, Perfluoroelastomer)",
+//     Color: "Red",
+//     Durometer: 75,
+//     DurometerScale: "Shore A",
+//     CrossSectionalGeometry: "O-Ring",
+//     SizeStandard: 34,
+//     CrossSectionalDiameter: 1.23,
+//     InsideDiameter: 2.12,
+//     Description: "Kalrez, KP4079, FFKM, Black, 75A",
+//     HighTemperature: 216,
+//     LowTemperature: 13,
+//   },
+//   {
+//     id: 10,
+//     SearchDescription: 1346,
+//     price: "$200",
+//     qnty: 20,
+//     Material: "FFKM (Kalrez®, CanRez™, Perfluoroelastomer)",
+//     Color: "Red",
+//     Durometer: 75,
+//     DurometerScale: "Shore A",
+//     CrossSectionalGeometry: "O-Ring",
+//     SizeStandard: 34,
+//     CrossSectionalDiameter: 1.23,
+//     InsideDiameter: 2.12,
+//     Description: "Kalrez, KP4079, FFKM, Black, 75A",
+//     HighTemperature: 216,
+//     LowTemperature: 13,
+//   },
+//   {
+//     id: 11,
+//     SearchDescription: 1654,
+//     price: "$200",
+//     qnty: 20,
+//     Material: "FFKM (Kalrez®, CanRez™, Perfluoroelastomer)",
+//     Color: "Red",
+//     Durometer: 75,
+//     DurometerScale: "Shore A",
+//     CrossSectionalGeometry: "O-Ring",
+//     SizeStandard: 34,
+//     CrossSectionalDiameter: 1.23,
+//     InsideDiameter: 2.12,
+//     Description: "Kalrez, KP4079, FFKM, Black, 75A",
+//     HighTemperature: 216,
+//     LowTemperature: 13,
+//   },
+//   {
+//     id: 12,
+//     SearchDescription: 1345,
+//     price: 0,
+//     qnty: 0,
+//     Material: "FFKM (Kalrez®, CanRez™, Perfluoroelastomer)",
+//     Color: "Red",
+//     Durometer: 75,
+//     DurometerScale: "Shore A",
+//     CrossSectionalGeometry: "O-Ring",
+//     SizeStandard: 34,
+//     CrossSectionalDiameter: 1.23,
+//     InsideDiameter: 2.12,
+//     Description: "Kalrez, KP4079, FFKM, Black, 75A",
+//     HighTemperature: 216,
+//     LowTemperature: 13,
+//   },
+//   {
+//     id: 13,
+//     SearchDescription: 1441,
+//     price: "$200",
+//     qnty: 20,
+//     Material: "FFKM (Kalrez®, CanRez™, Perfluoroelastomer)",
+//     Color: "Red",
+//     Durometer: 75,
+//     DurometerScale: "Shore A",
+//     CrossSectionalGeometry: "O-Ring",
+//     SizeStandard: 34,
+//     CrossSectionalDiameter: 1.23,
+//     InsideDiameter: 2.12,
+//     Description: "Kalrez, KP4079, FFKM, Black, 75A",
+//     HighTemperature: 216,
+//     LowTemperature: 13,
+//   },
+//   {
+//     id: 14,
+//     SearchDescription: 1654,
+//     price: "$200",
+//     qnty: 20,
+//     Material: "FFKM (Kalrez®, CanRez™, Perfluoroelastomer)",
+//     Color: "Red",
+//     Durometer: 75,
+//     DurometerScale: "Shore A",
+//     CrossSectionalGeometry: "O-Ring",
+//     SizeStandard: 34,
+//     CrossSectionalDiameter: 1.23,
+//     InsideDiameter: 2.12,
+//     Description: "Kalrez, KP4079, FFKM, Black, 75A",
+//     HighTemperature: 216,
+//     LowTemperature: 13,
+//   },
+// ];
+
+// rows.forEach((row) => {
+//   row.qnty = row.qnty === 0 ? "Check Stock" : "In Stock";
+//   row.qntyBgColorClass = row.qnty === "In Stock" ? "inStockBg" : "checkStockBg";
+// });
+
+// rows.forEach((row) => {
+//   row.price = row.price === 0 ? "Check Pricing" : row.price;
+// });
 
 export default function DataTable() {
+  const navigate = useNavigate();
 
-  const [pageSize, setPageSize] = useState(5); // Initial page size
+  const { color, setColor } = useContext(UserContext);
+  const [row, setrow] = useState([]);
+  const [id, setId] = useState("");
+  const [ItemNo, setItemNo] = useState("");
+  const [qnty, setQnty] = useState("");
+  const [price, setPrice] = useState("");
+  const [Description, setDescription] = useState("");
+  const [Description2, setDescription2] = useState("");
+  const [SearchDescription, setSearchDescription] = useState("");
+  const [Blocked, setBlocked] = useState("");
+  const [CompoundNumber, setCompoundNumber] = useState("");
+  const [Material, setMaterial] = useState("");
+  const [Durometer, setDurometer] = useState("");
+  const [DurometerScale, setDurometerScale] = useState("");
+  const [DurometerRange, setDurometerRange] = useState("");
+  const [LowTemperature, setLowTemperature] = useState("");
+  const [FDACompliant, setFDACompliant] = useState("");
+  const [MaterialSubtype, setMaterialSubtype] = useState("");
+  const [brand, setBrand] = useState("");
+  const [MaterialNotes, setMaterialNotes] = useState("");
+  const [CrossSectionalGeometry, setCrossSectionalGeometry] = useState("");
+  const [CrossSectionalDiameter, setCrossSectionalDiameter] = useState("");
+  const [InsideDiameter, setInsideDiameter] = useState("");
+  const [SizeAS568, setSizeAS568] = useState("");
+  const [SizeMetric, setSizeMetric] = useState("");
+  const [SizeJIS, setSizeJIS] = useState("");
+  const [SizeStandard, setSizeStandard] = useState("");
+  const [Online, setOnline] = useState("");
+  const [page_size, setPageSize] = useState(25); // Initial page size
+  const [next, setnext] = useState("");
+  const [prev, setprev] = useState("");
 
-  const handlePageSizeChange = (newPageSize) => {
-    setPageSize(newPageSize);
+  const [url, setUrl] = useState(
+    `api/products/?id=${id}&ItemNo=${ItemNo}&qnty=${qnty}&price=${price}&Description=${Description}&Description2=${Description2}&SearchDescription=${SearchDescription}&Blocked=${Blocked}&CompoundNumber=${CompoundNumber}&Material=${Material}&Durometer=${Durometer}&DurometerScale=${DurometerScale}&DurometerRange=${DurometerRange}&Color=${color}&LowTemperature=${LowTemperature}&FDACompliant=${FDACompliant}&MaterialSubtype=${MaterialSubtype}&Brand=${brand}&MaterialNotes=${MaterialNotes}&CrossSectionalGeometry=${CrossSectionalGeometry}&CrossSectionalDiameter=${CrossSectionalDiameter}&InsideDiameter=${InsideDiameter}&SizeAS568=${SizeAS568}&SizeMetric=${SizeMetric}&SizeJIS=${SizeJIS}&SizeStandard=${SizeStandard}&Online=${Online}&limit=${page_size}`
+  );
+  const [count, setcount] = useState(0);
+  const getData = async (uri) => {
+    // const a = await products(url);
+    // setDa(a);
+    // console.log(a.data);
+    const b = await products(uri);
+    console.log(b.data);
+    setcount(b.data.count);
+    setrow(b.data.results);
+    setnext(b.next);
+    setprev(b.previous);
   };
-  const {
-    id1,
-    cs1,
-    isChanged,
-    isFlipped,
-    search,
-    setFilteredCount,
-    item,
-    lowtemp,
-    hightemp,
-    size,
-    cs,
-    id,
-    selectedbrand,
-    // selectedSubmaterial,
-    selectedmaterial,
-    selectedhardness,
-    selectedcolor,
-    price,
-    setprice,
-    // productWithOnlineStatus,
-  } = useContext(UserContext);
-
-  const filteredProducts =
-    item?.filter((product) => {
-      const lowerCaseSearch = search.toLowerCase();
-
-      const isWithinTemperatureRange =
-        product.LowTemperatureC >= -70 &&
-        product.LowTemperatureC <= lowtemp &&
-        product.HighTemperatureC >= hightemp &&
-        product.HighTemperatureC <= 360;
-
-      const matchesSearch =
-        !search ||
-        (product.ItemNo &&
-          product.ItemNo.toLowerCase()
-            .replace(/[^a-zA-Z0-9]/g, "")
-            .includes(lowerCaseSearch.replace(/[^a-zA-Z0-9]/g, ""))) ||
-        (product.Description &&
-          product.Description.toLowerCase().includes(lowerCaseSearch)) ||
-        (product.DurometerScale &&
-          product.DurometerScale.toLowerCase().includes(lowerCaseSearch)) ||
-        (product.Description2 &&
-          product.Description2.toLowerCase().includes(lowerCaseSearch)) ||
-        (product.Color &&
-          product.Color.toLowerCase().includes(lowerCaseSearch)) ||
-        (product.DurometerScale &&
-          product.DurometerScale.toLowerCase().includes(lowerCaseSearch)) ||
-        (product.Material &&
-          product.Material.toLowerCase()
-            .replace(/[^a-zA-Z0-9]/g, "")
-            .includes(lowerCaseSearch.replace(/[^a-zA-Z0-9]/g, ""))) ||
-        (product.SearchDescription &&
-          product.SearchDescription.replace(/-/g, "")
-            .toLowerCase()
-            .includes(lowerCaseSearch.replace(/-/g, ""))) ||
-        (product.CompoundNumber &&
-          product.CompoundNumber.toLowerCase().includes(lowerCaseSearch));
-
-      const matchesColor =
-        !selectedcolor ||
-        (product.Color && product.Color.includes(selectedcolor));
-      const matchesBrand =
-        !selectedbrand ||
-        (product.Brand && product.Brand.includes(selectedbrand));
-      const matchesHardness =
-        !selectedhardness ||
-        (product.DurometerRange &&
-          product.DurometerRange.includes(selectedhardness));
-      const matchesMaterial =
-        !selectedmaterial ||
-        (product.Material && product.Material.includes(selectedmaterial));
-      // const matchessubMaterial = !selectedSubmaterial || (product.MaterialNotes && product.MaterialNotes.includes(selectedSubmaterial));
-      const matchesCS =
-      !cs1 ||
-      (product.CrossSectionalDiameterCS &&
-        product.CrossSectionalDiameterCS.toString().includes(cs1.toString()));
-    const matchesID =
-      !id1 ||
-      (product.InsideDiameterID &&
-        product.InsideDiameterID.toString().includes(id1.toString()));
-
-      const matchesSize =
-        !size ||
-        (product.SizeStandard &&
-          product.SizeStandard.toLowerCase().includes(size.toLowerCase()));
-
-      return (
-        isWithinTemperatureRange &&
-        matchesSearch &&
-        matchesColor &&
-        matchesBrand &&
-        matchesHardness &&
-        matchesMaterial &&
-        matchesCS &&
-        matchesID &&
-        matchesSize
-      );
-    }) || [];
 
   useEffect(() => {
-    setFilteredCount(filteredProducts.length);
-  }, [filteredProducts]);
+    setUrl(url);
+    getData(url);
+  }, [url]);
 
+  const { isChanged, isFlipped } = useContext(UserContext);
   const columns = [
-    { field: "ItemNo", headerName: "Item No", maxWidth: 120, headerClassName: 'header-cell' },
-    { field: "Color", headerName: "Color", maxWidth: 90, headerClassName: 'header-cell' },
+    {
+      field: "SearchDescription",
+      headerName: "Part Number",
+      cellClassName: "borderRightCell",
+      flex: true,
+     
+    },
+    {
+      field: "price",
+      headerName: "Starting Price",
+      cellClassName: "borderRightCell",
+      flex: true,
+      renderCell: (params) => {
+        const price = params.value;
+        if (price > 0) {
+          return `$${price}`;
+        } else if (price < 1) {
+          return 'Check pricing';
+        } else {
+          return '';
+        }
+      },
+    },
+    {
+      field: "qnty",
+      headerName: "Stock",
+      cellClassName: "borderRightCell",
+      flex: true,
+      renderCell: (params) => {
+        const qnty = params.value;
+        if (qnty > 0) {
+          return 'In stock';
+        } else if (qnty < 1) {
+          return 'Check stock';
+        } else {
+          return '';
+        }
+      },
+    },
+    {
+      field: "Material",
+      headerName: "Material",
+      headerClassName: "headerleftColumn",
+      cellClassName: "headerleftCell",
+      flex: true,
+    },
+    {
+      field: "Color",
+      headerName: "Color",
+      flex: true,
+      cellClassName: "borderRightCell",
+    },
+    {
+      field: "Durometer",
+      headerName: "Hardness",
+      flex: true,
+      cellClassName: "borderRightCell",
+    },
+    {
+      field: "DurometerScale",
+      headerName: "Scale",
+      flex: true,
+      headerClassName: "headerRightColumn",
+      cellClassName: "headerRightCell",
+    },
     {
       field: "CrossSectionalGeometry",
-      headerName: "CS",
-      maxWidth: 80,
-      headerClassName: 'header-cell'
+      headerName: "Type",
+      flex: true,
+      cellClassName: "borderRightCell",
     },
-    { field: "Color", headerName: "Brand", maxWidth: 90, headerClassName: 'header-cell' },
-    { field: "Material", headerName: "Material", maxWidth: 90, headerClassName: 'header-cell' },
-    { field: "Brand", headerName: "Brand", maxWidth: 90, headerClassName: 'header-cell' },
-    { field: "CrossSectionalDiameterCS", headerName: "CS", maxWidth: 90, headerClassName: 'header-cell' },
-    { field: "Durometer", headerName: "Type", maxWidth: 90, headerClassName: 'header-cell' },
-    { field: "HighTemperatureC", headerName: "High Temp", maxWidth: 90, headerClassName: 'header-cell' },
-    { field: "LowTemperatureC", headerName: "Low Temp", maxWidth: 90, headerClassName: 'header-cell' },
-    { field: "InsideDiameterID", headerName: "ID", maxWidth: 90, headerClassName: 'header-cell' },
-    { field: "UnitCost", headerName: "Price", maxWidth: 90, headerClassName: 'header-cell' },
-    { field: "qnty", headerName: "Quantity", maxWidth: 90, headerClassName: 'header-cell' },
-    { field: "Color", headerName: "Color", maxWidth: 90, headerClassName: 'header-cell' },
-
+    {
+      field: "SizeStandard",
+      headerName: "Size",
+      flex: true,
+      cellClassName: "borderRightCell",
+    },
+    {
+      field: "CrossSectionalDiameter",
+      headerName: isChanged ? "CS (in)" : "CS (mm)",
+      flex: true,
+      cellClassName: "borderRightCell",
+    },
+    {
+      field: "InsideDiameter",
+      headerName: isChanged ? "ID (in)" : "ID (mm)",
+      flex: true,
+      headerClassName: "headerRightColumn",
+      cellClassName: "headerRightCell",
+    },
+    {
+      field: "Description",
+      headerName: "Material Description",
+      cellClassName: "borderRightCell",
+      flex: true,
+    },
+    {
+      field: "LowTemperature",
+      headerName: isFlipped ? "Low Tmp(°F)" : "Low Tmp(°C)",
+      flex: true,
+      cellClassName: "borderRightCell",
+    },
+    {
+      field: "HighTemperature",
+      headerName: isFlipped ? "High Tmp(°F)" : "High Tmp(°C)",
+      flex: true,
+      cellClassName: "borderRightCell",
+    },
   ];
-
   
-
+  const handleClick = (data) => {
+    navigate(`/product/${data}`);
+  };
   return (
-    <div style={{ height: 800, minWidth: "100%" }}>
-      <DataGrid
-        rows={filteredProducts}
-        columns={columns}
-        getRowId={(row) => row.ItemNo} // Changed to 'row'
-        pageSize={pageSize}
-        onPageSizeChange={handlePageSizeChange}
-        pagination
-        paginationMode="client"
-        pageSizeOptions={[ 25, 50, 100]} // Updated page size options
-      />
+    <div style={{height: '56.5rem'}}>
+    <DataGrid
+      rows={row}
+      columns={columns}
+      rowCount={count}
+      onClick={() => handleClick(row.ItemNo)}
+      onPageChange={(params) => {
+        console.log("Current page:", params.page);
+        console.log("Page size:", params.pageSize);
+      }}
+      initialState={{
+        pagination: {
+          paginationModel: { page: 0, pageSize: 25 },
+        },
+      }}
+      onStateChange={(params) => {
+        console.log(params);
+      }}
+      pageSizeOptions={[25, 50, 100]}
+      style={{ width: "80vw"}}
+    />
     </div>
   );
 }

@@ -1,7 +1,7 @@
 import React, { useContext, useState, useEffect } from "react";
-import "./Checkprice.css";
+import "../CheckPrice/Checkprice.css";
 import { AiFillInfoCircle } from "react-icons/ai";
-import { UserContext } from "../../../../../../Downloads/Canyon_Full_Stack/canyoncomponents/src/UserContext.jsx";
+import { UserContext } from "../../UserContext";
 import { toast, success, error } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import Button from "@mui/material/Button";

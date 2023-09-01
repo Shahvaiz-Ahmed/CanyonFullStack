@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import SliderComponent from "../SliderComponent.jsx";
-import CheckboxList from "../CheckboxeList.jsx";
+import SliderComponent from "../SliderComponent";
+import CheckboxList from "../CheckboxeList";
 const BaseExpand = () => {
   const [isExpanded, setIsExpanded] = useState(false);
 

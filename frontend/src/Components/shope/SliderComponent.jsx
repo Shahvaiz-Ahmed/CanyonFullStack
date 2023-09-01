@@ -3,7 +3,7 @@ import Box from "@mui/material/Box";
 import Slider from "@mui/material/Slider";
 import Typography from "@material-ui/core/Typography";
 import { useContext } from "react";
-import { UserContext } from "../../../../../../Downloads/Canyon_Full_Stack/canyoncomponents/src/UserContext.jsx";
+import { UserContext } from "../../UserContext";
 import { useState } from "react";
 import { Button } from "@mui/material";
 

@@ -3,12 +3,12 @@ import { FaBars } from "react-icons/fa";
 import axios from "axios";
 import { motion } from "framer-motion";
 import "./css/shopright.css";
-import CustomPaginationActionsTable from "./ItemDetails.jsx";
+import CustomPaginationActionsTable from "./ItemDetails";
 import { useState, useEffect } from "react";
-import { UserContext } from "../../../../../../Downloads/Canyon_Full_Stack/canyoncomponents/src/UserContext.jsx";
-import ColorToggleButton from "./ColorToggleButton.jsx";
-import TemperatureToogle from "./TemperatureToogle.jsx";
-import ItemsData from "./ItemsData.jsx";
+import { UserContext } from "../../UserContext";
+import ColorToggleButton from "./ColorToggleButton";
+import TemperatureToogle from "./TemperatureToogle";
+import ItemsData from "./ItemsData";
 const ShopRight = () => {
   const [isOn, setIsOn] = useState(false);
 
@@ -50,7 +50,7 @@ const ShopRight = () => {
           style={{
             display: "flex",
             justifyContent: "space-between",
-            width: "77.5rem",
+            width: "76.5rem",
           }}
         >
           <h2

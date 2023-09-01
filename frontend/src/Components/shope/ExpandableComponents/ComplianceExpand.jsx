@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Compliance from "../Compliance.jsx";
+import Compliance from "../Compliance";
 const ComplianceExpand = () => {
   const [isExpanded, setIsExpanded] = useState(false);
 

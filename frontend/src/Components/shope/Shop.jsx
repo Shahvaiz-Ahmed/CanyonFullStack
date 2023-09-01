@@ -1,11 +1,11 @@
 import React from 'react';
-import Sleft from "./ShopLeft.jsx"
-import Sright from "./ShopRight.jsx";
-import Drawer  from './Drawer.jsx';
+import Sleft from "./ShopLeft"
+import Sright from "./ShopRight";
+import Drawer  from './Drawer';
 import { useContext } from 'react';
 import './Shop.css'
-import Table from './ItemDetails.jsx';
-import { UserContext } from '../../../../../../Downloads/Canyon_Full_Stack/canyoncomponents/src/UserContext.jsx';
+import Table from './ItemDetails';
+import { UserContext } from '../../UserContext';
 import  { useEffect, useState } from 'react';
 // import zIndex from '@mui/material/styles/zIndex';
 

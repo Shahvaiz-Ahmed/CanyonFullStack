@@ -9,7 +9,7 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
-import { UserContext } from "../../../../../../Downloads/Canyon_Full_Stack/canyoncomponents/src/UserContext.jsx";
+import { UserContext } from "../../UserContext";
 import { useContext } from "react";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
@@ -421,7 +421,7 @@ export default function ItemDetails() {
                         borderRight: "1px solid #E5E5E5",
                       }}
                     >
-                      {row.SizeStandard.split(" ")[0].concat(row.SizeAS568)}
+                      {row.SizeStandard.split(" ")[0].concat(row.SizeAS568).concat(row.size)}
                     </TableCell>
                     <TableCell
                       style={{

@@ -1,13 +1,17 @@
-import React, { useContext, useEffect, useState } from "react";
-import { UserContext } from "../../../../../../Downloads/Canyon_Full_Stack/canyoncomponents/src/UserContext.jsx";
+import React, { useContext, useEffect } from "react";
+import { UserContext } from "../../UserContext";
 
 const Brand = () => {
-  const { brandArray, setselectedbrand, shouldClearCheckboxes, checkboxStates, setCheckboxStates } = useContext(UserContext);
-  
+  const {
+    brandArray,
+    setselectedbrand,
+    shouldClearCheckboxes,
+    checkboxStates,
+    setCheckboxStates,
+  } = useContext(UserContext);
 
   const handleCheckboxChange = (event) => {
     const itemId = event.target.value;
-
     const newCheckboxStates = { ...checkboxStates };
     newCheckboxStates[itemId] = event.target.checked;
     setCheckboxStates(newCheckboxStates);
@@ -28,20 +32,29 @@ const Brand = () => {
     }
   }, [shouldClearCheckboxes]);
 
+  const brandItems = [
+    "Canyon Components",
+    "CanRez™ (Canyon Components)",
+    "Chemraz® (Greene Tweed)",
+    "Kalrez® (Dupont)",
+    "Parker Seal® (Parker)",
+    "Parofluor® (Parker)",
+    "Simriz® (Freudenberg)",
+  ];
+
   return (
     <div>
-      {brandArray &&
-        Object.entries(brandArray).map(([index, brand]) => (
-          <div key={index}>
-            <input
-              type="checkbox"
-              value={brand}
-              onChange={handleCheckboxChange}
-              checked={checkboxStates[brand] || false}
-            />
-            <label>{brand}</label>
-          </div>
-        ))}
+      {brandItems.map((item, index) => (
+        <div key={index}>
+          <input
+            type="checkbox"
+            value={item}
+            onChange={handleCheckboxChange}
+            checked={checkboxStates[item] || false}
+          />
+          <label>{item}</label>
+        </div>
+      ))}
     </div>
   );
 };

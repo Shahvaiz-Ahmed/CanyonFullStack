@@ -1,12 +1,12 @@
 import "./ProductComponent.css";
 import React, { useContext } from "react";
-import product from "../../../../../../Downloads/Canyon_Full_Stack/canyoncomponents/src/Static/Images/product.webp";
-import BasicTable from "./BasicTable.jsx";
-import DetailedDesc from "./DetailedDesc/DetailedDesc.jsx";
-import Layout from "../Layout/Layout.jsx";
-import CheckPrice from "../CheckPrice/CheckPrice.jsx";
+import product from "../../Static/Images/product.webp";
+import BasicTable from "./BasicTable";
+import DetailedDesc from "./DetailedDesc/DetailedDesc";
+import Layout from "../Layout/Layout";
+import CheckPrice from "../CheckPrice/CheckPrice";
 import { useParams } from "react-router-dom";
-import { UserContext } from "../../../../../../Downloads/Canyon_Full_Stack/canyoncomponents/src/UserContext.jsx";
+import { UserContext } from "../../UserContext";
 
 function ProductComponent() {
   const { productid } = useParams();

@@ -1,9 +1,15 @@
 import React, { useContext, useEffect } from "react";
-import { UserContext } from "../../../../../../Downloads/Canyon_Full_Stack/canyoncomponents/src/UserContext.jsx";
+import { UserContext } from "../../UserContext";
 
 const Color = () => {
-  const { colorArray, setselectedcolor, shouldClearCheckboxes, checkboxStates, setCheckboxStates } = useContext(UserContext);
-
+  const {
+    colorArray,
+    setselectedcolor,
+    shouldClearCheckboxes,
+    checkboxStates,
+    setCheckboxStates,
+    color,setColor,
+  } = useContext(UserContext);
 
   const handleCheckboxChange = (event) => {
     const itemId = event.target.value;
@@ -11,39 +17,54 @@ const Color = () => {
     newCheckboxStates[itemId] = event.target.checked;
     setCheckboxStates(newCheckboxStates);
     if (event.target.checked) {
-      setselectedcolor((prevItems) => [...prevItems, itemId]);
+      setColor((prevItems) => [...prevItems, itemId]);
     } else {
-      setselectedcolor((prevItems) =>
+      setColor((prevItems) =>
         prevItems.filter((id) => id !== itemId)
       );
     }
   };
+
   useEffect(() => {
     if (shouldClearCheckboxes) {
       setselectedcolor([]); // Clear the selected checkboxes
     }
   }, [shouldClearCheckboxes]);
 
+  const colorItems = [
+    "Black",
+    "Blue",
+    "Brown",
+    "Green",
+    "White",
+    "Red",
+    "Yellow",
+    "Orange",
+    "Transluscent",
+    "Transluscent yellow",
+    "Transluscent amber",
+    "Purple",
+    "Tan",
+    "Gray",
+    "Off-White",
+    "Transluscent Brown",
+  ];
+
   return (
     <div>
-      {colorArray && Object.entries(colorArray).map(([index, brand]) => (
+      {colorItems.map((item, index) => (
         <div key={index}>
           <input
             type="checkbox"
-            value={brand}
+            value={item}
             onChange={handleCheckboxChange}
-            checked={checkboxStates[brand] || false}
-
+            checked={checkboxStates[item] || false}
           />
-          <label>{brand}</label>
+          <label>{item}</label>
         </div>
       ))}
-
-
-
     </div>
   );
 };
 
 export default Color;
-

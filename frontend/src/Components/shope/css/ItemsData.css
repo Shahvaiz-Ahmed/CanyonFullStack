@@ -16,3 +16,41 @@
   .css-ptiqhd-MuiSvgIcon-root{
     color: white;
   }
+
+ 
+  
+  
+  
+  
+
+
+  /* ItemsData.css */
+
+.borderRightColumn {
+  border-right: 1px solid #D3D3D3;
+}
+
+.borderRightCell {
+  border-right: 1px solid #D3D3D3;
+
+}
+
+
+.headerleftColumn {
+  border-left: 3px solid #767676;
+}
+
+.headerleftCell {
+  border-left: 3px solid #767676;
+
+}
+.headerRightColumn {
+  border-right: 3px solid #767676;
+}
+
+.headerRightCell {
+  border-right: 3px solid #767676;
+}
+
+
+
