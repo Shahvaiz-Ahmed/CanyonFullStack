@@ -6,9 +6,9 @@ function DetailedDesc(props) {
   const rowStyle = {
     borderBottom: "1px solid #ccc", // Add a 1px solid line at the bottom of each row
   };
-  // console.log(props.row);
+  console.log(props.row, "New");
   return (
-    <div className="detailedDesc" style={{margin: 'auto'}}>
+    <div className="detailedDesc" style={{ margin: "auto" }}>
       <h1
         style={{
           backgroundColor: "#182e49",
@@ -28,13 +28,11 @@ function DetailedDesc(props) {
           </tr>
           <tr style={rowStyle}>
             <td className="hh1">Compund Number</td>
-            <td>
-              {props.row.CompoundNumber ? props.row.CompoundNumber : <></>}
-            </td>
+            <td>{props.rows ? props.rows.data[0].CompoundNumber : <></>}</td>
           </tr>
           <tr style={rowStyle}>
             <td className="hh1">Material</td>
-            <td>{props.row.Material}</td>
+            <td>{props.rows ? props.rows.data[0].Material : ""}</td>
           </tr>
           {/* <tr style={rowStyle}>
             <td className="hh1">Material Sub Type</td>
@@ -42,49 +40,61 @@ function DetailedDesc(props) {
           </tr> */}
           <tr style={rowStyle}>
             <td className="hh1">Color</td>
-            <td>{props.row.Color}</td>
+            <td>{props.rows ? props.rows.data[0].Color : ""}</td>
           </tr>
           <tr style={rowStyle}>
             <td className="hh1">
               Durometer <span></span>
-              {props.row.DurometerScale.substring(
-                0,
-                props.row.DurometerScale.indexOf(",")
-              )}
+              {props.rows
+                ? props.rows.data[0].DurometerScale.substring(
+                    0,
+                    props.rows.data[0].DurometerScale.indexOf(",")
+                  )
+                : ""}
             </td>
-            <td>{props.row.Durometer}</td>
+            <td>{props.rows ? props.rows.data[0].Durometer : ""}</td>
           </tr>
           <tr style={rowStyle}>
             <td className="hh1">Durometer Scale</td>
-            <td>{props.row.DurometerScale}</td>
+            <td>{props.rows ? props.rows.data[0].DurometerScale : ""}</td>
           </tr>
 
           <tr style={rowStyle}>
             <td className="hh1">Type</td>
-            <td>{props.row.CrossSectionalGeometry}</td>
+            <td>
+              {props.rows ? props.rows.data[0].CrossSectionalGeometry : ""}
+            </td>
           </tr>
           <tr style={rowStyle}>
             <td className="hh1">Size</td>
             <td>
-              {props.row.SizeStandard.split(" ")[0].concat(props.row.SizeAS568)}
+              {props.rows &&
+              props.rows.data[0] &&
+              props.rows.data[0].SizeStandard
+                ? props.rows.data[0].SizeStandard.split(" ")[0].concat(
+                    props.rows.data[0].SizeAS568 
+                  )
+                : ""}
             </td>
           </tr>
           <tr style={rowStyle}>
             <td className="hh1">Cross Section (mm)</td>
-            <td>{props.row.CrossSectionalDiameterCS}</td>
+            <td>
+              {props.rows ? props.rows.data[0].CrossSectionalDiameter : ""}
+            </td>
           </tr>
           <tr style={rowStyle}>
             <td className="hh1">Inside Diameter (mm)</td>
-            <td>{props.row.InsideDiameterID}</td>
+            <td>{props.rows ? props.rows.data[0].InsideDiameter : ""}</td>
           </tr>
-          
+
           <tr style={rowStyle}>
             <td className="hh1">High Temp (&deg;C)</td>
-            <td>{props.row.HighTemperatureC}</td>
+            <td>{props.rows ? props.rows.data[0].HighTemperature : ""}</td>
           </tr>
           <tr style={rowStyle}>
             <td className="hh1">Low Temp (&deg;C)</td>
-            <td>{props.row.LowTemperatureC}</td>
+            <td>{props.rows ? props.rows.data[0].LowTemperature : ""}</td>
           </tr>
         </table>
       </div>

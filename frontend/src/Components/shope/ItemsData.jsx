@@ -8,7 +8,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { products } from "../../Data/API";
-// const rows =[
+
 //   {
 //     id: 1,
 //     SearchDescription: 1123,
@@ -317,13 +317,14 @@ export default function DataTable() {
   const { isChanged, isFlipped } = useContext(UserContext);
   const columns = [
     {
+      id: "ItemNo",
       field: "SearchDescription",
       headerName: "Part Number",
       cellClassName: "borderRightCell",
       flex: true,
-     
     },
     {
+      id: "ItemNo",
       field: "price",
       headerName: "Starting Price",
       cellClassName: "borderRightCell",
@@ -333,13 +334,14 @@ export default function DataTable() {
         if (price > 0) {
           return `$${price}`;
         } else if (price < 1) {
-          return 'Check pricing';
+          return "Check pricing";
         } else {
-          return '';
+          return "";
         }
       },
     },
     {
+      id: "ItemNo",
       field: "qnty",
       headerName: "Stock",
       cellClassName: "borderRightCell",
@@ -347,15 +349,16 @@ export default function DataTable() {
       renderCell: (params) => {
         const qnty = params.value;
         if (qnty > 0) {
-          return 'In stock';
+          return "In stock";
         } else if (qnty < 1) {
-          return 'Check stock';
+          return "Check stock";
         } else {
-          return '';
+          return "";
         }
       },
     },
     {
+      id: "ItemNo",
       field: "Material",
       headerName: "Material",
       headerClassName: "headerleftColumn",
@@ -363,18 +366,21 @@ export default function DataTable() {
       flex: true,
     },
     {
+      id: "ItemNo",
       field: "Color",
       headerName: "Color",
       flex: true,
       cellClassName: "borderRightCell",
     },
     {
+      id: "ItemNo",
       field: "Durometer",
       headerName: "Hardness",
       flex: true,
       cellClassName: "borderRightCell",
     },
     {
+      id: "ItemNo",
       field: "DurometerScale",
       headerName: "Scale",
       flex: true,
@@ -382,24 +388,28 @@ export default function DataTable() {
       cellClassName: "headerRightCell",
     },
     {
+      id: "ItemNo",
       field: "CrossSectionalGeometry",
       headerName: "Type",
       flex: true,
       cellClassName: "borderRightCell",
     },
     {
+      id: "ItemNo",
       field: "SizeStandard",
       headerName: "Size",
       flex: true,
       cellClassName: "borderRightCell",
     },
     {
+      id: "ItemNo",
       field: "CrossSectionalDiameter",
       headerName: isChanged ? "CS (in)" : "CS (mm)",
       flex: true,
       cellClassName: "borderRightCell",
     },
     {
+      id: "ItemNo",
       field: "InsideDiameter",
       headerName: isChanged ? "ID (in)" : "ID (mm)",
       flex: true,
@@ -407,50 +417,53 @@ export default function DataTable() {
       cellClassName: "headerRightCell",
     },
     {
+      id: "ItemNo",
       field: "Description",
       headerName: "Material Description",
       cellClassName: "borderRightCell",
       flex: true,
     },
     {
+      id: "ItemNo",
       field: "LowTemperature",
       headerName: isFlipped ? "Low Tmp(°F)" : "Low Tmp(°C)",
       flex: true,
       cellClassName: "borderRightCell",
     },
     {
+      id: "ItemNo",
       field: "HighTemperature",
       headerName: isFlipped ? "High Tmp(°F)" : "High Tmp(°C)",
       flex: true,
       cellClassName: "borderRightCell",
     },
   ];
-  
+
   const handleClick = (data) => {
     navigate(`/product/${data}`);
   };
   return (
-    <div style={{height: '56.5rem'}}>
-    <DataGrid
-      rows={row}
-      columns={columns}
-      rowCount={count}
-      onClick={() => handleClick(row.ItemNo)}
-      onPageChange={(params) => {
-        console.log("Current page:", params.page);
-        console.log("Page size:", params.pageSize);
-      }}
-      initialState={{
-        pagination: {
-          paginationModel: { page: 0, pageSize: 25 },
-        },
-      }}
-      onStateChange={(params) => {
-        console.log(params);
-      }}
-      pageSizeOptions={[25, 50, 100]}
-      style={{ width: "80vw"}}
-    />
+    <div style={{ height: "56.5rem" }}>
+      <DataGrid
+        rows={row}
+        columns={columns}
+        rowCount={count}
+        onCellClick={(params) => handleClick(params.row.ItemNo)}
+        onPageChange={(params) => {
+          console.log("Current page:", params.page);
+          console.log("Page size:", params.pageSize);
+        }}
+        initialState={{
+          pagination: {
+            paginationModel: { page: 0, pageSize: 25 },
+          },
+        }}
+        onStateChange={(params) => {
+          console.log(params);
+        }}
+        pageSizeOptions={[25, 50, 100]}
+        style={{ width: "80vw" }}
+      />
     </div>
   );
 }

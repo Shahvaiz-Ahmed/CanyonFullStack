@@ -68,27 +68,6 @@ function App() {
   const [color, setColor] = useState("");
   const [item, setitem] = useState([]);
   const [numberofcecords, setnumberofcecords] = useState();
-  useEffect(() => {
-    dataGet();
-  }, [accessToken]);
-  const dataGet = async () => {
-    axios
-      .get(
-        "https://api.businesscentral.dynamics.com/v2.0/4e94f06f-db01-47eb-aff3-7a284b01dd84/SandboxNoExtentions/ODataV4/Company('My%20Company')/itemsaleprice",
-        {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },
-        }
-      )
-      .then((response) => {
-        setPrice(response.data.value);
-        console.log("API Response:", response.data.value[0]);
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-      });
-  };
   const [login, setlogin] = useState(() => {
     const prevLogin = localStorage.getItem("login");
     return prevLogin ? JSON.parse(prevLogin) : false;

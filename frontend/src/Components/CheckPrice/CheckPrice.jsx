@@ -6,6 +6,7 @@ import { toast, success, error } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import Button from "@mui/material/Button";
 import axios from "axios";
+import { useParams } from "react-router-dom";
 import {
   Table,
   TableBody,
@@ -17,6 +18,8 @@ import {
 } from "@mui/material";
 
 const CheckPrice = (props) => {
+  const { productid } = useParams();
+
   const existingArray = JSON.parse(localStorage.getItem("cart")) || [];
   const navigate = useNavigate();
 
@@ -41,15 +44,13 @@ const CheckPrice = (props) => {
     setqnty,
   } = useContext(UserContext);
   const [islocalquantity, setislocalquantity] = useState(
-    props.filteredRowsquantity[0]
-      ? props.filteredRowsquantity[0].quantity
-      : null
+    props.rows ? props.rows.data[0].quantity : null
   );
 
   const [selectedPriceInfo, setSelectedPriceInfo] = useState({}); // New state for selected price info
 
   useEffect(() => {
-    const totalPrice = qntyinput * props.row.price;
+    const totalPrice = qntyinput * props.rows.data[0].price;
     settotalprice(totalPrice);
     axios
       .get(
@@ -59,20 +60,19 @@ const CheckPrice = (props) => {
             Authorization: `Bearer ${accessToken}`,
           },
           params: {
-            $filter: `ItemNo eq '${props.id}'`,
+            $filter: `ItemNo eq '${props.row.data[0].id}'`,
           },
         }
       )
 
       .then((response) => {
-        console.log("Hello World" + response);
         setpriceArrayRes(response.data.value);
       })
       .catch((error) => {
         console.error("Error:", error);
       });
     // // console.log("quantity ", qntyinput);
-  }, [qntyinput, props.row.price, priceArrayRes]);
+  }, [qntyinput, props.rows.data[0].price, priceArrayRes]);
 
   useEffect(() => {
     if (priceArrayRes && priceArrayRes.length > 0) {
@@ -94,14 +94,6 @@ const CheckPrice = (props) => {
     props.row.originalPrice,
   ]);
 
-  const rowStyle = {
-    borderBottom: "1px solid #ccc", // Add a 1px solid line at the bottom of each row
-  };
-  const calculateDiscountedPrice = (originalPrice, discount) => {
-    return (originalPrice * (1 - discount / 100)).toFixed(2);
-  };
-  console.log(selectedPriceInfo, "priceinfo");
-  console.log(selectedPriceInfo.MinimumQuantity, "qnty");
   return (
     <div>
       <h2>Enter a quantity to Check Price</h2>
