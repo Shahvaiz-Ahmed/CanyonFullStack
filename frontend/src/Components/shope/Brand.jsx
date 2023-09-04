@@ -19,9 +19,7 @@ const Brand = () => {
     if (event.target.checked) {
       setselectedbrand((prevItems) => [...prevItems, itemId]);
     } else {
-      setselectedbrand((prevItems) =>
-        prevItems.filter((id) => id !== itemId)
-      );
+      setselectedbrand((prevItems) => prevItems.filter((id) => id !== itemId));
     }
   };
 
@@ -43,9 +41,17 @@ const Brand = () => {
   ];
 
   return (
-    <div>
+    <div
+      style={{
+        position: "relative",
+        top: 0,
+        bottom: 0,
+        fontSize: "12px",
+        width: "70%",
+      }}
+    >
       {brandItems.map((item, index) => (
-        <div key={index}>
+        <div key={index} style={{ display: "flex",alignItems:"flex-start" }}>
           <input
             type="checkbox"
             value={item}

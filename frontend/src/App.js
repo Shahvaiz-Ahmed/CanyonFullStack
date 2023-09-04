@@ -18,6 +18,10 @@ import { products } from "./Data/API";
 // import CheckPrice from './Components/CheckPrice/CheckPrice';
 
 function App() {
+  const [page_size, setPageSize] = useState(25);
+  const [url, setUrl] = useState(
+    `http://127.0.0.1:8000/api/products/?limit=${page_size}`
+  );
   const [size1, setsize1] = useState();
   const [cs1, setcs1] = useState();
   const [id1, setid1] = useState();
@@ -94,6 +98,7 @@ function App() {
   }, [userdetail]);
 
   const [totalprice, settotalprice] = useState(0);
+  const [row, setrow] = useState([]);
 
   const [isChanged, setIsChanged] = useState(false);
 
@@ -110,10 +115,20 @@ function App() {
   const [selectedCountry, setselectedCountry] = useState();
 
   const [dataLoaded, setDataLoaded] = useState(false);
+  const [paginationControl, setPaginationControl] = useState();
 
   const handleDataLoaded = () => {
     setDataLoaded(true);
   };
+
+  useEffect(() => {
+    localStorage.setItem("login", JSON.stringify(login));
+    axios.get(url).then((res) => {
+      setPaginationControl(res.data);
+      // console.log(res.data, "first");
+      setrow(res.data.results);
+    });
+  }, [login, row, url, paginationControl, page_size]);
 
   return (
     <>
@@ -128,6 +143,8 @@ function App() {
                 setColor,
                 selectedCountry,
                 setselectedCountry,
+                paginationControl,
+
                 id1,
                 setid1,
                 cs1,
@@ -138,12 +155,17 @@ function App() {
                 setShouldClearCheckboxes,
                 checkboxStates,
                 setCheckboxStates,
+                page_size,
+                setPageSize,
 
                 value,
                 setValue,
                 setorderno,
                 orderno,
-
+                row,
+                setrow,
+                url,
+                setUrl,
                 submaterialArray,
                 setsubmaterialArray,
 
@@ -152,7 +174,8 @@ function App() {
 
                 Orderable,
                 setOrderable,
-
+                setPageSize,
+                page_size,
                 isChanged,
                 setIsChanged,
                 isFlipped,
@@ -287,26 +310,20 @@ function App() {
                   path="/request-quote/:productid"
                   element={<RequestQuote />}
                 />
-
                 <Route path="/request-quote" element={<RequestQuote />} />
-
                 <Route
                   path="/CartPopup"
                   element={login ? <CartPopup /> : <SignIn />}
                 />
-
                 <Route
                   path="/Checkout"
                   element={login ? <Checkout /> : <SignIn />}
                 />
-
                 <Route
                   path="/product/:productid"
                   element={<ProductComponent />}
                 />
-
                 <Route path="/table" element={<OrderHistory />}></Route>
-
                 <Route path="/table/:userNo" element={<OrderHistory />}></Route>
               </Routes>
             </UserContext.Provider>{" "}

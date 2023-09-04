@@ -42,9 +42,16 @@ const DurometerRange_Compliance = () => {
   ];
 
   return (
-    <div>
+    <div
+    style={{
+      position: "relative",
+      top: 0,
+      bottom: 0,
+      fontSize: "12px",
+      width: "70%",
+    }}>
       {hardnessItems.map((item, index) => (
-        <div key={index}>
+        <div key={index} style={{ display: "flex",alignItems:"flex-start" }}>
           <input
             type="checkbox"
             value={item}

@@ -2,10 +2,8 @@ import React, { useContext, useState } from "react";
 import { UserContext } from "../../UserContext";
 
 const CheckboxeList = () => {
-  const {
-    selectedmaterial,
-    setselectedmaterial,
-  } = useContext(UserContext);
+  const { selectedmaterial, setselectedmaterial,  row,setrow,
+    url,setUrl,page_size } = useContext(UserContext);
 
   const handleCheckboxChange = (event) => {
     const itemId = event.target.value;
@@ -60,14 +58,25 @@ const CheckboxeList = () => {
         position: "relative",
         top: 0,
         bottom: 0,
+        fontSize: "12px",
+        width: "70%",
       }}
     >
       {checkboxItems.map((item, index) => (
-        <div key={index}>
+        <div key={index} style={{ display: "flex",alignItems:"flex-start" }}>
           <input
             type="checkbox"
             value={item}
-            onClick={handleCheckboxChange}
+            onChange={handleCheckboxChange}
+            onClick={(e)=>{
+              console.log(e.target.value);
+              setUrl(url+`&Material=${e.target.value}`)
+              // axios.get(`http://127.0.0.1:8000/api/products/?Color=${e.target.value}&limit=25`).then((res)=>{
+              //   setrow([])
+              //   console.log(res.data);
+              //   setrow(res.data)
+              // })
+            }}
             checked={selectedmaterial.includes(item)}
           />
           <label>{item}</label>

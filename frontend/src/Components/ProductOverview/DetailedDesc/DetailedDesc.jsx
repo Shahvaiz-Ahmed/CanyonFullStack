@@ -6,7 +6,6 @@ function DetailedDesc(props) {
   const rowStyle = {
     borderBottom: "1px solid #ccc", // Add a 1px solid line at the bottom of each row
   };
-  console.log(props.row, "New");
   return (
     <div className="detailedDesc" style={{ margin: "auto" }}>
       <h1
@@ -34,10 +33,10 @@ function DetailedDesc(props) {
             <td className="hh1">Material</td>
             <td>{props.rows ? props.rows.data[0].Material : ""}</td>
           </tr>
-          {/* <tr style={rowStyle}>
+          <tr style={rowStyle}>
             <td className="hh1">Material Sub Type</td>
-            <td>{props.row.MaterialSubtype}</td>
-          </tr> */}
+            <td>{props.rows ? props.rows.data[0].MaterialSubtype: ""}</td>
+          </tr>
           <tr style={rowStyle}>
             <td className="hh1">Color</td>
             <td>{props.rows ? props.rows.data[0].Color : ""}</td>

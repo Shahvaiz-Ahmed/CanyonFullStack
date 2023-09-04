@@ -49,3 +49,27 @@
   border: none;
 } 
   */
+  .pagination{
+    width: 100vw;
+    position: relative;
+    display: flex;
+    justify-content: flex-end;
+    top: 0;
+    scale: 0.035;
+    height: 30px;
+    width: 30px;
+    max-width: 30px;
+
+}
+
+.pagination>* :hover{
+    cursor: pointer;
+    /* pointer:cursor; */
+}
+
+.footerTable{
+    display: flex;
+    gap: 5vw;
+    transform: translateX(65vw);
+
+}

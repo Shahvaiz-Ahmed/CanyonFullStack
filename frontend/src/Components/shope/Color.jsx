@@ -8,7 +8,10 @@ const Color = () => {
     shouldClearCheckboxes,
     checkboxStates,
     setCheckboxStates,
-    color,setColor,
+    color,
+    setColor,
+     row,setrow,
+    url,setUrl,page_size
   } = useContext(UserContext);
 
   const handleCheckboxChange = (event) => {
@@ -19,9 +22,7 @@ const Color = () => {
     if (event.target.checked) {
       setColor((prevItems) => [...prevItems, itemId]);
     } else {
-      setColor((prevItems) =>
-        prevItems.filter((id) => id !== itemId)
-      );
+      setColor((prevItems) => prevItems.filter((id) => id !== itemId));
     }
   };
 
@@ -51,13 +52,30 @@ const Color = () => {
   ];
 
   return (
-    <div>
+    <div
+      style={{
+        position: "relative",
+        top: 0,
+        bottom: 0,
+        fontSize: "12px",
+        width: "70%",
+      }}
+    >
       {colorItems.map((item, index) => (
         <div key={index}>
           <input
             type="checkbox"
             value={item}
             onChange={handleCheckboxChange}
+            onClick={(e)=>{
+              console.log(e.target.value);
+              setUrl(url+`&Color=${e.target.value}`)
+              // axios.get(`http://127.0.0.1:8000/api/products/?Color=${e.target.value}&limit=25`).then((res)=>{
+              //   setrow([])
+              //   console.log(res.data);
+              //   setrow(res.data)
+              // })
+            }}
             checked={checkboxStates[item] || false}
           />
           <label>{item}</label>

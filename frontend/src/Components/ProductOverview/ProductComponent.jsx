@@ -12,11 +12,7 @@ import axios from "axios";
 function ProductComponent() {
   const { productid } = useParams();
   const [row, setrow] = useState();
-  // console.log(productid);
-
   const { item, cartlocalArray } = useContext(UserContext);
-  // console.log(item);
-
   useEffect(() => {
     return () => {
       axios
@@ -27,7 +23,6 @@ function ProductComponent() {
         });
     };
   }, [row, productid]);
-
   return (
     <Layout>
       <div className="productComponent ">
@@ -91,15 +86,11 @@ function ProductComponent() {
                 Encapsulated, High Temp, and Silicon Lubricated.
               </p>
               <BasicTable rows={row} />
-
-              {/* <CheckPrice
-                        rows={row}
-                        // filteredRowsquantity={filteredRowsquantity}
-                        
-                      /> */}
             </div>
+
           </div>
-          <DetailedDesc rows={row}/>
+
+          <DetailedDesc rows={row} />
         </>
       </div>
     </Layout>

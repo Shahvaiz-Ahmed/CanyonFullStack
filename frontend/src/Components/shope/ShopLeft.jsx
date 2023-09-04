@@ -58,9 +58,12 @@ const ShopLeft = () => {
     setCheckboxStates,
     selectedCountry,
     setselectedCountry,
+     url,setUrl,page_size
   } = useContext(UserContext);
 
   const clearAllFilters = () => {
+        setUrl(`http://127.0.0.1:8000/api/products/?limit=${page_size}`)
+
     setValue([0, 80]);
     setlowtemp(0);
     sethightemp(80);
@@ -110,7 +113,7 @@ const ShopLeft = () => {
   };
 
   return (
-    <div className="main ">
+    <div className="main">
       <Button
         className="clear-btn"
         onClick={clearAllFilters}
@@ -140,35 +143,23 @@ const ShopLeft = () => {
         }}
       >
         {isCartopen && <CartPopup />}
-
         <div className="flex" onClick={handleExpandCollapseDimensions}>
-          <h2 style={{ fontWeight: "500" }}>DIMENSIONS(mm)</h2>
-
-          {/* <AiFillCaretUp
-            className={
-              isDimensionsExpanded ? "caret-icon expanded" : "caret-icon"
-            }
-          /> */}
-
+          <h2 style={{ fontWeight: "500", fontSize: "15px" }}>
+            DIMENSIONS(mm)
+          </h2>
           {isDimensionsExpanded ? <AiFillCaretUp /> : <AiFillCaretDown />}
         </div>
-
         {isDimensionsExpanded && (
-          <img src={dimensions} alt="StandardImage" width={200} />
+          <img src={dimensions} alt="StandardImage" width={160} />
         )}
-
-        {/* Standard */}
-
         <div className="flex" onClick={handelExpandStandard}>
-          <h2 style={{ fontWeight: "500" }}>STANDARD SIZE</h2>
+          <h2 style={{ fontWeight: "500", fontSize: "15px" }}>STANDARD SIZE</h2>
           {isStandardExpand ? <AiFillCaretUp /> : <AiFillCaretDown />}
         </div>
-
         {isStandardExpand && (
           <>
             <p>Standard Size:</p>
-
-            <div className="p1" style={{ width: "12rem" }}>
+            <div className="p1" style={{ width: "10rem" }}>
               <select
                 value={selectedCountry}
                 className="country"
@@ -200,7 +191,8 @@ const ShopLeft = () => {
                 style={{
                   backgroundColor: "#fff",
                   borderRadius: "4px",
-                  width: "2.5rem",
+                  width: "1.5rem",
+                  fontSize: "10px",
                 }}
                 type="text"
                 className="sizeinput"
@@ -208,34 +200,37 @@ const ShopLeft = () => {
                 min={0}
                 onChange={(e) => {
                   setsize(e.target.value);
+                   setUrl(url + `&SizeStandard=${e.target.value}`);
                 }}
               />
               <input
                 style={{
                   backgroundColor: "#fff",
                   borderRadius: "4px",
-                  width: "2.5rem",
+                  width: "1.5rem",
+                  fontSize: "10px",
                 }}
-                type="number"
                 className="sizeinput"
                 placeholder="CS"
                 min={0}
                 onChange={(e) => {
                   setCs(e.target.value);
+                   setUrl(url + `&CrossSectionalDiameter=${e.target.value}`);
                 }}
               />
               <input
                 style={{
                   backgroundColor: "#fff",
                   borderRadius: "4px",
-                  width: "2.5rem",
+                  width: "1.5rem",
+                  fontSize: "10px",
                 }}
-                type="number"
                 className="sizeinput"
                 placeholder="ID"
                 min={0}
                 onChange={(e) => {
                   setid(e.target.value);
+                   setUrl(url + `&InsideDiameter=${e.target.value}`);
                 }}
               />
             </div>
@@ -246,9 +241,13 @@ const ShopLeft = () => {
 
         <div className="flex" onClick={handleExpandTemp}>
           {isFlipped ? (
-            <h2 style={{ fontWeight: "500" }}>TEMPERATURE &deg; F</h2>
+            <h2 style={{ fontWeight: "500", fontSize: "15px" }}>
+              TEMPERATURE &deg; F
+            </h2>
           ) : (
-            <h2 style={{ fontWeight: "500" }}>TEMPERATURE &deg; C</h2>
+            <h2 style={{ fontWeight: "500", fontSize: "15px" }}>
+              TEMPERATURE &deg; C
+            </h2>
           )}
 
           {isTempExpand ? <AiFillCaretUp /> : <AiFillCaretDown />}
@@ -257,14 +256,18 @@ const ShopLeft = () => {
         {isTempExpand && <SliderComponent value={value} onChange={setValue} />}
 
         <div className="flex" onClick={handleExpandBase}>
-          <h2 style={{ fontWeight: "500" }}>BASE MATERIAL TYPE</h2>
+          <h2 style={{ fontWeight: "500", fontSize: "15px" }}>
+            BASE MATERIAL TYPE
+          </h2>
 
           {isBaseExpand ? <AiFillCaretUp /> : <AiFillCaretDown />}
         </div>
 
         {isBaseExpand && <CheckboxList />}
         <div className="flex" onClick={handleSubBase}>
-          <h2 style={{ fontWeight: "500" }}>MATERIAL SUBTYPE</h2>
+          <h2 style={{ fontWeight: "500", fontSize: "15px" }}>
+            MATERIAL SUBTYPE
+          </h2>
 
           <AiFillCaretDown
             className={isSubMaterial ? "caret-icon expanded" : "caret-icon"}
@@ -274,7 +277,7 @@ const ShopLeft = () => {
         {isSubMaterial && <CheckboxeListSub />}
 
         <div className="flex" onClick={handleExpandHardness}>
-          <h2 style={{ fontWeight: "500" }}>HARDNESS</h2>
+          <h2 style={{ fontWeight: "500", fontSize: "15px" }}>HARDNESS</h2>
 
           {isHardnessExpand ? <AiFillCaretUp /> : <AiFillCaretDown />}
         </div>
@@ -282,16 +285,15 @@ const ShopLeft = () => {
         {isHardnessExpand && <DurometerRange_Compliance />}
 
         <div className="flex" onClick={handleExpandColor}>
-          <h2 style={{ fontWeight: "500" }}>COLOR</h2>
+          <h2 style={{ fontWeight: "500", fontSize: "15px" }}>COLOR</h2>
 
           {isColorExpand ? <AiFillCaretUp /> : <AiFillCaretDown />}
-
         </div>
 
         {isColorExpand && <Color />}
 
         <div className="flex" onClick={handleExpandBrand}>
-          <h2 style={{ fontWeight: "500" }}>BRAND</h2>
+          <h2 style={{ fontWeight: "500", fontSize: "15px" }}>BRAND</h2>
 
           {isBrandExpand ? <AiFillCaretUp /> : <AiFillCaretDown />}
         </div>

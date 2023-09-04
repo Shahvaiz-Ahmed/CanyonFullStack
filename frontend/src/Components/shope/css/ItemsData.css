@@ -17,13 +17,65 @@
     color: white;
   }
 
- 
-  
+  .pagination{
+    width: 100vw;
+    position: relative;
+    display: flex;
+    justify-content: flex-end;
+    top: 0;
+    scale: 0.035;
+    height: 30px;
+    width: 30px;
+    max-width: 30px;
+
+}
+
+.pagination>* :hover{
+    cursor: pointer;
+    /* pointer:cursor; */
+}
+
+.footerTable{
+    display: flex;
+    gap: 5vw;
+    transform: translateX(65vw);
+
+}
+  /* Add this CSS to your stylesheet or as a style tag in your component */
+  .cell-multiline {
+    white-space: pre-line;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-height: 3em; /* Maximum height for 2 lines of text */
+    word-wrap: break-word; /* Ensure words wrap to the next line */
+  }
   
   
   
 
+  .stock{
+    background-color: #D3D3D3;
+    width: 140%;
+  }
+  
+  .in-stock {
+    background-color: #92D050;
+    font-weight: 600;
+    padding: 1.1rem;
+    width: 200px;
+    margin-left: -10px;
+  }
+  
+  .check-stock {
+    background-color: #D3D3D3;
+    font-weight: 600;
 
+  }
+  
+
+.headerStock{
+  padding:'10px'
+}
   /* ItemsData.css */
 
 .borderRightColumn {
@@ -32,7 +84,11 @@
 
 .borderRightCell {
   border-right: 1px solid #D3D3D3;
+  font-size: 12px;
 
+}
+.centerText {
+  text-align: center;
 }
 
 

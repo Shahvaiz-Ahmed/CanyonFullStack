@@ -290,6 +290,7 @@ export default function DataTable() {
   const [SizeStandard, setSizeStandard] = useState("");
   const [Online, setOnline] = useState("");
   const [page_size, setPageSize] = useState(25); // Initial page size
+
   const [next, setnext] = useState("");
   const [prev, setprev] = useState("");
 
@@ -315,83 +316,144 @@ export default function DataTable() {
   }, [url]);
 
   const { isChanged, isFlipped } = useContext(UserContext);
-  const columns = [
+
+  const [columns, setColumns] = useState([
     {
       id: "ItemNo",
       field: "SearchDescription",
       headerName: "Part Number",
       cellClassName: "borderRightCell",
-      flex: true,
+      flex: false,
+      minWidth: 120,
+      resizable: true, // Allow resizing for this column
     },
     {
       id: "ItemNo",
       field: "price",
       headerName: "Starting Price",
+      maxWidth: 100,
       cellClassName: "borderRightCell",
-      flex: true,
+      resizable: true,
       renderCell: (params) => {
         const price = params.value;
+        let cellText = "";
+
         if (price > 0) {
-          return `$${price}`;
+          cellText = `$${price}`;
         } else if (price < 1) {
-          return "Check pricing";
-        } else {
-          return "";
+          cellText = "Check pricing";
         }
+
+        return (
+          <div
+            style={{
+              whiteSpace: "normal",
+              wordWrap: "break-word",
+              lineHeight: "1",
+            }}
+          >
+            {cellText}
+          </div>
+        );
       },
     },
+
     {
       id: "ItemNo",
       field: "qnty",
       headerName: "Stock",
-      cellClassName: "borderRightCell",
-      flex: true,
+      resizable: true,
+      cellClassName: "borderRightCell stock",
+      width: 70,
       renderCell: (params) => {
         const qnty = params.value;
+
+        let cellText = "In";
+
+        // Set the text based on the quantity
         if (qnty > 0) {
-          return "In stock";
+          cellText = "In stock";
+          params.row.inStock = true;
         } else if (qnty < 1) {
-          return "Check stock";
-        } else {
-          return "";
+          cellText = "Check stock";
+          params.row.inStock = false;
         }
+
+        return (
+          <div
+            style={{
+              whiteSpace: "normal",
+              wordWrap: "break-word",
+              lineHeight: "1",
+              textAlign:'center'
+            }}
+            className={`stock-cell  ${
+              params.row.inStock ? "in-stock" : "check-stock"
+            }`}
+          >
+            {cellText}
+          </div>
+        );
       },
     },
+
     {
       id: "ItemNo",
       field: "Material",
       headerName: "Material",
+      resizable: true,
+      minWidth: 175,
       headerClassName: "headerleftColumn",
-      cellClassName: "headerleftCell",
-      flex: true,
+      cellClassName: "borderRightCell",
+      renderCell: (params) => {
+        const material = params.value;
+        return (
+          <div
+            style={{
+              whiteSpace: "normal",
+              wordWrap: "break-word",
+              lineHeight: "1",
+            }}
+          >
+            {material}
+          </div>
+        );
+      },
     },
     {
       id: "ItemNo",
       field: "Color",
       headerName: "Color",
-      flex: true,
+      resizable: true, // Allow resizing for this column
       cellClassName: "borderRightCell",
+      maxWidth:55
     },
     {
       id: "ItemNo",
       field: "Durometer",
       headerName: "Hardness",
+      resizable: true, // Allow resizing for this column
+
       flex: true,
-      cellClassName: "borderRightCell",
+      cellClassName: "borderRightCell centerText",
     },
     {
       id: "ItemNo",
       field: "DurometerScale",
       headerName: "Scale",
-      flex: true,
+      width: 80,
+      overflow: "hidden",
+      whiteSpace: "wrap",
+      resizable: true, // Allow resizing for this column
       headerClassName: "headerRightColumn",
-      cellClassName: "headerRightCell",
+      cellClassName: "borderRightCell",
     },
     {
       id: "ItemNo",
       field: "CrossSectionalGeometry",
       headerName: "Type",
       flex: true,
+      resizable: true, // Allow resizing for this column
       cellClassName: "borderRightCell",
     },
     {
@@ -399,6 +461,8 @@ export default function DataTable() {
       field: "SizeStandard",
       headerName: "Size",
       flex: true,
+      resizable: true, // Allow resizing for this column
+
       cellClassName: "borderRightCell",
     },
     {
@@ -406,6 +470,8 @@ export default function DataTable() {
       field: "CrossSectionalDiameter",
       headerName: isChanged ? "CS (in)" : "CS (mm)",
       flex: true,
+      resizable: true, // Allow resizing for this column
+
       cellClassName: "borderRightCell",
     },
     {
@@ -413,19 +479,36 @@ export default function DataTable() {
       field: "InsideDiameter",
       headerName: isChanged ? "ID (in)" : "ID (mm)",
       flex: true,
+      resizable: true, // Allow resizing for this column
       headerClassName: "headerRightColumn",
       cellClassName: "headerRightCell",
     },
     {
       id: "ItemNo",
       field: "Description",
+      resizable: true, // Allow resizing for this column
       headerName: "Material Description",
       cellClassName: "borderRightCell",
-      flex: true,
+      minWidth: 130,
+      renderCell: (params) => {
+        const material = params.value;
+        return (
+          <div
+            style={{
+              whiteSpace: "normal",
+              wordWrap: "break-word",
+              lineHeight: "1",
+            }}
+          >
+            {material}
+          </div>
+        );
+      },
     },
     {
       id: "ItemNo",
       field: "LowTemperature",
+      resizable: true, // Allow resizing for this column
       headerName: isFlipped ? "Low Tmp(°F)" : "Low Tmp(°C)",
       flex: true,
       cellClassName: "borderRightCell",
@@ -433,36 +516,44 @@ export default function DataTable() {
     {
       id: "ItemNo",
       field: "HighTemperature",
+      resizable: true, // Allow resizing for this column
       headerName: isFlipped ? "High Tmp(°F)" : "High Tmp(°C)",
       flex: true,
       cellClassName: "borderRightCell",
     },
-  ];
+  ]);
+  const handleColumnResize = (params) => {
+    const updatedColumns = [...columns];
+    const updatedColumn = updatedColumns.find(
+      (col) => col.field === params.field
+    );
 
+    if (updatedColumn) {
+      updatedColumn.width = params.width;
+      setColumns(updatedColumns); // Assuming you have a state variable for columns
+    }
+  };
   const handleClick = (data) => {
     navigate(`/product/${data}`);
   };
+
+  const getRowHeight = () => 35;
   return (
     <div style={{ height: "56.5rem" }}>
       <DataGrid
         rows={row}
         columns={columns}
-        rowCount={count}
         onCellClick={(params) => handleClick(params.row.ItemNo)}
-        onPageChange={(params) => {
-          console.log("Current page:", params.page);
-          console.log("Page size:", params.pageSize);
-        }}
-        initialState={{
-          pagination: {
-            paginationModel: { page: 0, pageSize: 25 },
-          },
-        }}
-        onStateChange={(params) => {
-          console.log(params);
-        }}
+        onClick={() => handleClick(row.ItemNo)}
+      // autoPageSize={true}
+      rowCount={page_size}
+      hideFooter={true}
+      disableColumnFilter={true}
+      paginationMode={"server"}
+        
+      
         pageSizeOptions={[25, 50, 100]}
-        style={{ width: "80vw" }}
+        getRowHeight={getRowHeight}
       />
     </div>
   );

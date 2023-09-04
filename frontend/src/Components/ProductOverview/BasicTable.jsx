@@ -12,8 +12,6 @@ function createData(AvailableQuantity, LeadTimeToShip) {
 }
 
 export default function BasicTable(props) {
-  // // console.log(props.row);
-  console.log(props.rows, "now");
 
   return (
     <TableContainer component={Paper} sx={{ minWidth: 500, maxWidth: 800 }}>
