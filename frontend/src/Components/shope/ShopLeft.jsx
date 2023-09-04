@@ -158,7 +158,7 @@ const ShopLeft = () => {
         </div>
         {isStandardExpand && (
           <>
-            <p>Standard Size:</p>
+            <p>Standard Sizes:</p>
             <div className="p1" style={{ width: "10rem" }}>
               <select
                 value={selectedCountry}
