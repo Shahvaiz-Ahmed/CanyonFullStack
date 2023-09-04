@@ -13,6 +13,8 @@ from .models import Product
 from django.db.models import Count
 
 from django.db.models import Q
+from django.db.models import FloatField
+from django.db.models.functions import Cast
 
 
 class DataFetchView(View):
@@ -355,15 +357,52 @@ class DataFetchView(View):
             "Authorization": f"Bearer {access_token}"
 
         }
+
+class CustomFilterBackend(DjangoFilterBackend):
+    def filter_queryset(self, request, queryset, view):
+        # Get the filter parameters from the request
+        filterset = self.get_filterset(request, queryset, view)
+        
+        # Apply custom filtering logic for each field
+        for field_name, value in request.GET.items():
+            if field_name in filterset.filters:
+                # Split values by comma to allow multiple values
+                values = value.split(',')
+                
+                # Handle less than and greater than queries for temperature fields
+                if 'lt:' in values[0]:
+                    operator = '__lt'
+                    value = float(values[0][3:])
+                elif 'lte:' in values[0]:
+                    operator = '__lte'
+                    value = float(values[0][4:])
+                elif 'gt:' in values[0]:
+                    operator = '__gt'
+                    value = float(values[0][3:])
+                elif 'gte:' in values[0]:
+                    operator = '__gte'
+                    value = float(values[0][4:])
+                else:
+                    operator = ''
+                    value = values[0]
+
+                # Apply the filter to the queryset
+                queryset = queryset.filter(Q(**{f"{field_name}{operator}": value}))
+        
+        return queryset
+
+        
 class ProductViewSet(viewsets.ModelViewSet):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
     pagination_class = LimitOffsetPagination
-    default_limit = 10  # Default number of items per page
-    max_limit = 100  # Maximum number of items per page
-    filter_backends = [DjangoFilterBackend]
-    filterset_fields = ['id', 'ItemNo', 'qnty', 'price', 'Description', 'Description2', 'SearchDescription', 'Blocked',
-                        'CompoundNumber', 'Material', 'Durometer', 'DurometerScale', 'DurometerRange', 'Color',
-                        'LowTemperature', 'FDACompliant', 'MaterialSubtype', 'Brand', 'MaterialNotes',
-                        'CrossSectionalGeometry', 'CrossSectionalDiameter', 'InsideDiameter', 'SizeAS568', 'SizeMetric',
-                        'SizeJIS', 'SizeStandard', 'Online']
+    default_limit = 10
+    max_limit = 100
+    filter_backends = [CustomFilterBackend]  # Use the custom filtering backend
+    filterset_fields = [
+        'id', 'ItemNo', 'qnty', 'price', 'Description', 'Description2', 'SearchDescription', 'Blocked',
+        'CompoundNumber', 'Material', 'Durometer', 'DurometerScale', 'DurometerRange', 'Color',
+        'LowTemperature', 'FDACompliant', 'MaterialSubtype', 'Brand', 'MaterialNotes',
+        'CrossSectionalGeometry', 'CrossSectionalDiameter', 'InsideDiameter', 'SizeAS568', 'SizeMetric',
+        'SizeJIS', 'SizeStandard', 'Online'
+    ]

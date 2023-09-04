@@ -69,7 +69,12 @@ const Color = () => {
             onChange={handleCheckboxChange}
             onClick={(e)=>{
               console.log(e.target.value);
+              if(e.target.checked){ 
               setUrl(url+`&Color=${e.target.value}`)
+              }
+              else if(!e.target.checked){
+                setUrl( `http://127.0.0.1:8000/api/products/?limit=${page_size}`)
+              }
               // axios.get(`http://127.0.0.1:8000/api/products/?Color=${e.target.value}&limit=25`).then((res)=>{
               //   setrow([])
               //   console.log(res.data);

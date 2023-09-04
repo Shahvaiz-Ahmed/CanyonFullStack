@@ -57,7 +57,13 @@ const CheckboxeListSub = () => {
         <div key={index} style={{ display: "flex", alignItems: "flex-start" }}>
           <input type="checkbox" value={item} onChange={handleCheckboxChange}  onClick={(e)=>{
               console.log(e.target.value);
-              setUrl(url+`&MaterialSubtype=${e.target.value}`)
+              
+              if(e.target.checked){ 
+                setUrl(url+`&MaterialSubtype=${e.target.value}`)
+                }
+                else if(!e.target.checked){
+                  setUrl( `http://127.0.0.1:8000/api/products/?limit=${page_size}`)
+                }
               // axios.get(`http://127.0.0.1:8000/api/products/?Color=${e.target.value}&limit=25`).then((res)=>{
               //   setrow([])
               //   console.log(res.data);

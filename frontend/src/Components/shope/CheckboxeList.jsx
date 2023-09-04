@@ -1,21 +1,35 @@
 import React, { useContext, useState } from "react";
 import { UserContext } from "../../UserContext";
 
+let Arr = [];
+
 const CheckboxeList = () => {
   const { selectedmaterial, setselectedmaterial,  row,setrow,
     url,setUrl,page_size } = useContext(UserContext);
+    
 
-  const handleCheckboxChange = (event) => {
-    const itemId = event.target.value;
 
-    if (selectedmaterial.includes(itemId)) {
-      setselectedmaterial((prevItems) =>
-        prevItems.filter((id) => id !== itemId)
-      );
-    } else {
-      setselectedmaterial((prevItems) => [...prevItems, itemId]);
-    }
-  };
+  // const handleCheckboxChange = (event) => {
+  //   const itemId = event.target.value;
+
+  //   if (selectedmaterial.includes(itemId)) {
+  //     setselectedmaterial((prevItems) =>
+  //       prevItems.filter((id) => {
+  //         id !== itemId
+  //         console.log(id);
+  //         if(selectedmaterial.length===0){
+  //         setUrl(url+`&Material=${id}`)
+  //         }
+  //         else{
+  //           setUrl(url+','+`${id}`)
+  //         }
+        
+  //       })
+  //     );
+  //   } else {
+  //     setselectedmaterial((prevItems) => [...prevItems, itemId]);
+  //   }
+  // };
 
   const checkboxItems = [
     "ACM (Acrylic Rubber)",
@@ -67,17 +81,31 @@ const CheckboxeList = () => {
           <input
             type="checkbox"
             value={item}
-            onChange={handleCheckboxChange}
+            // onChange={handleCheckboxChange}
             onClick={(e)=>{
-              console.log(e.target.value);
-              setUrl(url+`&Material=${e.target.value}`)
+              if(e.target.checked){ 
+                if(Arr.length===0){
+                  setUrl(url+`&Material=${e.target.value}`)
+                Arr.push(e.target.value)
+                }
+                else{
+                  Arr.map((i)=>{
+                    return setUrl(url+','+`${i+1}`)
+                  })
+                }
+                
+                }
+                else if(!e.target.checked){
+                  setUrl( `http://127.0.0.1:8000/api/products/?limit=${page_size}`)
+                  Arr.pop(e.target.value)
+                }
               // axios.get(`http://127.0.0.1:8000/api/products/?Color=${e.target.value}&limit=25`).then((res)=>{
               //   setrow([])
               //   console.log(res.data);
               //   setrow(res.data)
               // })
             }}
-            checked={selectedmaterial.includes(item)}
+            // checked={selectedmaterial.includes(item)}
           />
           <label>{item}</label>
         </div>

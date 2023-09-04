@@ -125,8 +125,8 @@ function App() {
     localStorage.setItem("login", JSON.stringify(login));
     axios.get(url).then((res) => {
       setPaginationControl(res.data);
-      // console.log(res.data, "first");
       setrow(res.data.results);
+      // console.log(res.data, "first");
     });
   }, [login, row, url, paginationControl, page_size]);
 

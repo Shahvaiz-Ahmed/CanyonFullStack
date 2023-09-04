@@ -8,9 +8,16 @@ const Brand = () => {
     shouldClearCheckboxes,
     checkboxStates,
     setCheckboxStates,
+    url,setUrl,page_size
   } = useContext(UserContext);
 
   const handleCheckboxChange = (event) => {
+    if(event.target.checked){ 
+      setUrl(url+`&Brand=${e.target.value}`)
+      }
+      else if(!event.target.checked){
+        setUrl( `http://127.0.0.1:8000/api/products/?limit=${page_size}`)
+      }
     const itemId = event.target.value;
     const newCheckboxStates = { ...checkboxStates };
     newCheckboxStates[itemId] = event.target.checked;

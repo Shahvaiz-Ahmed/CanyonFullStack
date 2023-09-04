@@ -13,7 +13,7 @@ function valuetext(value) {
 
 export default function RangeSlider() {
   // const [value, setValue] = React.useState([0, 80]);
-  const { sethightemp, setlowtemp, isFlipped, value, setValue } = useContext(UserContext);
+  const { sethightemp, setlowtemp, isFlipped, value, setValue, url, setUrl } = useContext(UserContext);
   const [clearfilter, setclearfilter] = useState([]);
   
 
@@ -21,6 +21,7 @@ export default function RangeSlider() {
     setValue(newValue);
     setlowtemp(newValue[0]);
     sethightemp(newValue[1]);
+    setUrl(url+`&LowTemperature=lte:${newValue[0]}&HighTemperature=gte:${newValue[1]}`)
   };
 
   

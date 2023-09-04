@@ -261,8 +261,7 @@ import { products } from "../../Data/API";
 export default function DataTable() {
   const navigate = useNavigate();
 
-  const { color, setColor } = useContext(UserContext);
-  const [row, setrow] = useState([]);
+  const { color, setColor, row, setrow } = useContext(UserContext);
   const [id, setId] = useState("");
   const [ItemNo, setItemNo] = useState("");
   const [qnty, setQnty] = useState("");
