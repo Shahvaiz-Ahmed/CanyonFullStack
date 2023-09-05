@@ -73,7 +73,8 @@ const Color = () => {
               setUrl(url+`&Color=${e.target.value}`)
               }
               else if(!e.target.checked){
-                setUrl( `http://127.0.0.1:8000/api/products/?limit=${page_size}`)
+                let newUrl = url.replace(/(\?|&)Color=[^&]*/g, '');
+                setUrl( newUrl)
               }
               // axios.get(`http://127.0.0.1:8000/api/products/?Color=${e.target.value}&limit=25`).then((res)=>{
               //   setrow([])

@@ -362,34 +362,84 @@ class CustomFilterBackend(DjangoFilterBackend):
     def filter_queryset(self, request, queryset, view):
         # Get the filter parameters from the request
         filterset = self.get_filterset(request, queryset, view)
+        print(request.query_params.get('HighTemperature', None))
         
         # Apply custom filtering logic for each field
         for field_name, value in request.GET.items():
-            if field_name in filterset.filters:
+            if field_name=='HighTemperature'or field_name=='LowTemperature':
+                low_temp = request.query_params.get('LowTemperature', None)
+                high_temp = request.query_params.get('HighTemperature', None)
+
+                queryset = Product.objects.filter(
+                    Q(LowTemperature__lte=low_temp) &
+                    Q(HighTemperature__gte=high_temp)
+                )
+            elif field_name in filterset.filters:
                 # Split values by comma to allow multiple values
                 values = value.split(',')
                 
                 # Handle less than and greater than queries for temperature fields
                 if 'lt:' in values[0]:
                     operator = '__lt'
-                    value = float(values[0][3:])
+                    value = (values[0][3:])
                 elif 'lte:' in values[0]:
                     operator = '__lte'
-                    value = float(values[0][4:])
+                    value = (values[0][4:])
                 elif 'gt:' in values[0]:
                     operator = '__gt'
-                    value = float(values[0][3:])
+                    value = values[0][3:]
                 elif 'gte:' in values[0]:
                     operator = '__gte'
-                    value = float(values[0][4:])
+                    value = values[0][4:]
                 else:
                     operator = ''
                     value = values[0]
 
                 # Apply the filter to the queryset
                 queryset = queryset.filter(Q(**{f"{field_name}{operator}": value}))
+            if field_name=='search' :
+                search_query = request.GET.get('search', '')
+
+ 
+
+ 
+
+ 
+
+        if search_query:
+
+ 
+
+            # Create a Q object to search across all specified fields
+
+ 
+
+            q_objects = Q()
+
+ 
+
+            for field_name in view.filterset_fields:
+
+ 
+
+                q_objects |= Q(**{f"{field_name}__icontains": search_query})
+
+ 
+
+           
+
+ 
+
+            # Apply the search filter to the queryset
+
+ 
+
+            queryset = queryset.filter(q_objects)
+
+   
         
         return queryset
+    
 
         
 class ProductViewSet(viewsets.ModelViewSet):
@@ -406,3 +456,10 @@ class ProductViewSet(viewsets.ModelViewSet):
         'CrossSectionalGeometry', 'CrossSectionalDiameter', 'InsideDiameter', 'SizeAS568', 'SizeMetric',
         'SizeJIS', 'SizeStandard', 'Online'
     ]
+
+
+# class MaterialSubtype(viewsets.ModelViewSet):
+#     def list(self,request,material):
+#         a = Product.objects.filter(Material=material)
+#         queryset = Product.objects.all()
+    
