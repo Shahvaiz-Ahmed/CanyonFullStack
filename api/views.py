@@ -399,42 +399,27 @@ class CustomFilterBackend(DjangoFilterBackend):
                 queryset = queryset.filter(Q(**{f"{field_name}{operator}": value}))
             if field_name=='search' :
                 search_query = request.GET.get('search', '')
+                if search_query:
 
- 
+                    q_objects = Q()
 
- 
+                    for field_name in view.filterset_fields:
 
- 
+        
 
-        if search_query:
+                        q_objects |= Q(**{f"{field_name}__icontains": search_query})
 
- 
+        
 
-            # Create a Q object to search across all specified fields
+                
 
- 
+        
 
-            q_objects = Q()
+                    # Apply the search filter to the queryset
 
- 
+        
 
-            for field_name in view.filterset_fields:
-
- 
-
-                q_objects |= Q(**{f"{field_name}__icontains": search_query})
-
- 
-
-           
-
- 
-
-            # Apply the search filter to the queryset
-
- 
-
-            queryset = queryset.filter(q_objects)
+                    queryset = queryset.filter(q_objects)
 
    
         
