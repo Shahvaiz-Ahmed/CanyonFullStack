@@ -188,12 +188,14 @@ const Standard = () => {
       const apiUrl = `&SizeAS568=${selectedSizeString}&CrossSectionalDiameter=${selectedCSString}&InsideDiameter=${selectedIDString}`;
     if(selectedSize.length === 0 && selectedCS.length === 0 && selectedID.length === 0){
       let newUrl = url.replace(/(\?|&)SizeAS568=[^&]*/g, "");
+      newUrl = newUrl.replace(/(\?|&)SizeJIS=[^&]*/g, "");
       newUrl = newUrl.replace(/(\?|&)CrossSectionalDiameter=[^&]*/g, "");
       newUrl = newUrl.replace(/(\?|&)InsideDiameter=[^&]*/g, "");
       setUrl(newUrl)
     }
     else{
       let newUrl = url.replace(/(\?|&)SizeAS568=[^&]*/g, "");
+      newUrl = newUrl.replace(/(\?|&)SizeJIS=[^&]*/g, "");
       newUrl = newUrl.replace(/(\?|&)CrossSectionalDiameter=[^&]*/g, "");
       newUrl = newUrl.replace(/(\?|&)InsideDiameter=[^&]*/g, "");
       setUrl(newUrl+apiUrl)
@@ -209,12 +211,14 @@ const Standard = () => {
       const apiUrl = `&SizeJIS=${selectedSizeString}&CrossSectionalDiameter=${selectedCSString}&InsideDiameter=${selectedIDString}`;
     if(selectedSize.length === 0 && selectedCS.length === 0 && selectedID.length === 0){
       let newUrl = url.replace(/(\?|&)SizeAS568=[^&]*/g, "");
+      newUrl = newUrl.replace(/(\?|&)SizeJIS=[^&]*/g, "");
       newUrl = newUrl.replace(/(\?|&)CrossSectionalDiameter=[^&]*/g, "");
       newUrl = newUrl.replace(/(\?|&)InsideDiameter=[^&]*/g, "");
       setUrl(newUrl)
     }
     else{
       let newUrl = url.replace(/(\?|&)SizeAS568=[^&]*/g, "");
+      newUrl = newUrl.replace(/(\?|&)SizeJIS=[^&]*/g, "");
       newUrl = newUrl.replace(/(\?|&)CrossSectionalDiameter=[^&]*/g, "");
       newUrl = newUrl.replace(/(\?|&)InsideDiameter=[^&]*/g, "");
       setUrl(newUrl+apiUrl)
