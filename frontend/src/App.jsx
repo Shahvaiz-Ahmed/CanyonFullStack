@@ -1,97 +1,131 @@
-import {useState, useEffect} from 'react'
+import { useEffect, useState } from 'react'
 import './App.css'
-import {Routes, Route} from "react-router-dom";
-import {UserContext} from "../src/UserContext";
-
-import Index from "./Components/Index";
-//
-//
-//
-// import RequestQuote from "./Components/REquestQutoe/RequestQuote";
-//
-//
-//
-// import SignIn from "./Components/Signin/signin";
-//
-//
-//
-// import Signup from "./Components/Signup/Signup";
-//
-//
-//
-// import Checkout from "./Components/CheckoutComponent/Checkout";
-//
-//
-//
-// import ProductComponent from "./Components/ProductOverview/ProductComponent.jsx";
-//
-//
-//
-// import CartPopup from "./Components/CartPage/CartPopup";
-
-
-import {Toaster} from "react-hot-toast";
-
-
-import axios from "axios";
-// import OrderHistory from "./Components/OrderHistory/OrderHistory";
-//
-// import CenteredIcon from "./Components/CenteredIcon/CenteredIcon";
-import {products} from './Data/API.js'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import { Home, DetailPage, AddToCart, RequestQuote, CheckOut } from './Pages'
+import { UserContext } from './UserContext/UserContext'
+import axios from 'axios'
 
 function App() {
-	const [id, setId] = useState('');
-	const [ItemNo, setItemNo] = useState('');
-	const [qnty, setQnty] = useState('');
-	const [price, setPrice] = useState('');
-	const [Description, setDescription] = useState('');
-	const [Description2, setDescription2] = useState('');
-	const [SearchDescription, setSearchDescription] = useState('');
-	const [Blocked, setBlocked] = useState('');
-	const [CompoundNumber, setCompoundNumber] = useState('');
-	const [Material, setMaterial] = useState('');
-	const [Durometer, setDurometer] = useState('');
-	const [DurometerScale, setDurometerScale] = useState('');
-	const [DurometerRange, setDurometerRange] = useState('');
-	const [color, setColor] = useState('');
-	const [LowTemperature, setLowTemperature] = useState('');
-	const [FDACompliant, setFDACompliant] = useState('');
-	const [MaterialSubtype, setMaterialSubtype] = useState('');
-	const [brand, setBrand] = useState('');
-	const [MaterialNotes, setMaterialNotes] = useState('');
-	const [CrossSectionalGeometry, setCrossSectionalGeometry] = useState('');
-	const [CrossSectionalDiameter, setCrossSectionalDiameter] = useState('');
-	const [InsideDiameter, setInsideDiameter] = useState('');
-	const [SizeAS568, setSizeAS568] = useState('');
-	const [SizeMetric, setSizeMetric] = useState('');
-	const [SizeJIS, setSizeJIS] = useState('');
-	const [SizeStandard, setSizeStandard] = useState('');
-	const [Online, setOnline] = useState('');
-	const [page_size, setPageSize] = useState(10);
-	const [url, setUrl] = useState(`api/products/?id=${id}&ItemNo=${ItemNo}&qnty=${qnty}&price=${price}&Description=${Description}&Description2=${Description2}&SearchDescription=${SearchDescription}&Blocked=${Blocked}&CompoundNumber=${CompoundNumber}&Material=${Material}&Durometer=${Durometer}&DurometerScale=${DurometerScale}&DurometerRange=${DurometerRange}&Color=${color}&LowTemperature=${LowTemperature}&FDACompliant=${FDACompliant}&MaterialSubtype=${MaterialSubtype}&Brand=${brand}&MaterialNotes=${MaterialNotes}&CrossSectionalGeometry=${CrossSectionalGeometry}&CrossSectionalDiameter=${CrossSectionalDiameter}&InsideDiameter=${InsideDiameter}&SizeAS568=${SizeAS568}&SizeMetric=${SizeMetric}&SizeJIS=${SizeJIS}&SizeStandard=${SizeStandard}&Online=${Online}&limit=${page_size}`)
-	const [da, setDa] = useState('')
+  const [pageSize, setPageSize] = useState(25)
+  const [url, setUrl] = useState(`http://127.0.0.1:8000/api/products/?Block=False&Online=Online&limit=${pageSize}&ordering=CompoundNumber`)
+  const [data, setData] = useState([])
+  const [sizeToggle, setSizeToggle] = useState(true)
+  const [tempToggle, setTempToggle] = useState(true)
+  const [row, setRow] = useState({})
+  const [nextPage, setNextPage] = useState('')
+  const [previousPage, setPreviousPage] = useState('')
+  const [accessToken, setAccessToken] = useState('')
+  const [clearFiler, setClearFilter] = useState(false)
 
-	const getData = async () => {
-		const a = await products(url)
-		setDa(a)
-		console.log(a.data)
-	}
+  const [selectedMaterials, setSelectedMaterials] = useState([]);
+  const [selectedcompliance, setSelectedcompliance] = useState([]);
+  const [selectedhardness, setSelectedhardness] = useState([]);
+  const [selectedbrand, setSelectedbrand] = useState([]);
+  const [selectedcolor, setSelectedcolor] = useState([]);
+  const [selectedsubtype, setSelectedsubtype] = useState([]);
+  const [temperature, setTemperature] = useState([0, 80]);
+  const [itemCart, setItemCart] = useState([]);
+  const [count, setCount] = useState(0)
+  const [blurMaterial, setBlurMaterial] = useState([])
+  const [blurSubMaterial, setBlurSubMaterial] = useState([])
+  const [blurHardness, setBlurHardness] = useState([])
+  const [blurCompliance, setBlurCompliance] = useState([])
+  const [blurColor, setBlurColor] = useState([])
+  const [blurBrand, setBlurBrand] = useState([])
+  const [selectedCountry, setSelectedCountry] = useState('')
+  const [showStandard, setShowStandard] = useState('')
+  const [showCompliance, setShowCompliance] = useState(false);
+  const [selectedJSSize, setselectedJSSize] = useState([])
+  const [selectedJSCS, setselectedJSCS] = useState([])
+  const [selectedJSID, setselectedJSID] = useState([])
+  const [selectedUSASize, setselectedUSASize] = useState([])
+  const [selectedUSACS, setselectedUSACS] = useState([])
+  const [selectedUSAID, setselectedUSAID] = useState([])
 
-	useEffect(() => {
-		getData()
-	}, []);
+  const [selectedSize, setSelectedSize] = useState([]); // Array to store selected Size values
+  const [selectedCS, setSelectedCS] = useState([]);     // Array to store selected CS values
+  const [selectedID, setSelectedID] = useState([]);     // Array to store selected ID values
+  
 
-	return (
-		<>
-			<h1>HELLO</h1>
-			<button onClick={async () => {
-				setUrl(da.data.next)
-				console.log(await products(url))
+  useEffect(() => {
 
-			}}>Click
-			</button>
-		</>
-	)
+    let localStorageItemCart = localStorage.getItem('itemCart');
+
+
+
+    if (!localStorageItemCart) {
+
+      localStorageItemCart = [];
+
+      localStorage.setItem('itemCart', JSON.stringify(localStorageItemCart));
+
+    } else {
+
+      localStorageItemCart = JSON.parse(localStorageItemCart);
+
+    }
+
+
+
+    setItemCart(localStorageItemCart);
+
+  }, []);
+
+  useEffect(() => {
+    axios.get(url).then((res) => {
+      console.log(res.data);
+      setBlurColor(res.data.distinct_colors);
+      setBlurMaterial(res.data.distinct_Material)
+      setBlurSubMaterial(res.data.distinct_MaterialSubtype)
+      setBlurHardness(res.data.distinct_DurometerRange)
+      setBlurBrand(res.data.distinct_Brand)
+      setData(res.data.results.results)
+      setNextPage(res.data.results.next);
+      setPreviousPage(res.data.results.previous);
+      setCount(res.data.results.count)
+    })
+    axios.get('http://127.0.0.1:8000/api/get_access_token/').then((res) => {
+      setAccessToken(res.data.access_token)
+    })
+  }, [url, pageSize, setAccessToken, setData]);
+  return (
+    <div className="App">
+      <UserContext.Provider value={{
+        selectedSize, setSelectedSize,selectedCS, setSelectedCS,selectedID, setSelectedID,
+        itemCart, setItemCart, temperature, setTemperature, selectedbrand, setSelectedbrand, selectedsubtype, setSelectedsubtype, selectedcolor, setSelectedcolor, selectedhardness, setSelectedhardness, selectedcompliance, setSelectedcompliance, selectedMaterials, setSelectedMaterials, url, setUrl, setPageSize, data, pageSize, sizeToggle, setSizeToggle, tempToggle, setTempToggle, row, setRow, nextPage, setNextPage, previousPage, setPreviousPage, accessToken, setAccessToken, clearFiler, setClearFilter, count, blurMaterial, setBlurMaterial
+        , blurSubMaterial, setBlurSubMaterial
+        , blurHardness, setBlurHardness
+        , blurCompliance, setBlurCompliance
+        , blurColor, setBlurColor
+        , blurBrand, setBlurBrand,
+        selectedUSASize,
+        selectedJSSize,
+        selectedUSACS,
+        selectedUSAID,
+        selectedJSCS,
+        selectedJSID,
+        selectedCountry, setSelectedCountry,
+        showStandard, setShowStandard,
+        showCompliance, setShowCompliance,
+        setselectedJSSize,
+setselectedJSCS,
+setselectedJSID,
+setselectedUSASize,
+setselectedUSACS,
+setselectedUSAID,
+      }} >
+        <Router>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/detail/:id" element={<DetailPage />} />
+            <Route path="/addtocart" element={<AddToCart />} />
+            <Route path="/requestquote/:id" element={<RequestQuote />} />
+            <Route path="/CheckOut" element={<CheckOut />} />
+          </Routes>
+        </Router>
+      </UserContext.Provider>
+    </div>
+  )
 }
 
 export default App
