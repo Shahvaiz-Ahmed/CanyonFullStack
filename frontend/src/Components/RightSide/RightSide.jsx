@@ -47,7 +47,7 @@ const RightSide = () => {
                 <div></div>
             </div>
             {/* Table  */}
-            <div className='tableOuterStyle' style={{ position: "relative", overflowX: "hidden", overflowY: 'scroll', maxHeight: "90vh" }} >
+            <div className='tableOuterStyle' style={{ position: "relative", overflowX: "hidden", overflowY: 'scroll', maxHeight: "90vh"}} >
                 <table className="custom-table" style={{ width: "90vw" }}>
                     <thead style={{ zIndex: "1000" }} className='custom_header'>
                         <tr>
@@ -101,7 +101,7 @@ const RightSide = () => {
                             <React.Fragment key={item.id}>
 
                                 <tr className={index % 2 === 1 ? 'gray-row' : ''} style={{ cursor: "pointer", height: "30px" }}>
-                                    <td style={{ color: '#000', border: 'none', textAlign: "center", minWidth: "120px" }}><Link to={`/detail/${item.ItemNo}`} style={{ textDecoration: "none", color: '#000', textAlign: "bottom", minWidth: "120px", marginTop: "19px" }}>{item.SearchDescription}</Link></td>
+                                    <td style={{ color: '#000', border: 'none', textAlign: "center", minWidth: "120px" }}><Link to={`/detail/${item.ItemNo}`} style={{ textDecoration: "none", color: '#000', textAlign: "bottom", minWidth: "120px", marginTop: "19px", fontWeight: 900 }}>{item.SearchDescription}</Link></td>
                                     <td>{
                                         item.price === 0 ? <p style={{ fontWeight: 600, minWidth: "80px", textAlign: "center", }}>Check pricing</p> : <p style={{ fontWeight: 600, minWidth: "80px", textAlign: "center" }}>{item.price}</p>
                                     }</td>

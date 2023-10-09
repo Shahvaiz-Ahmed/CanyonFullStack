@@ -30,6 +30,7 @@ const Description = () => {
                 <DetailsRow tech={"Inside Diameter (mm)"} value={row.InsideDiameter} />
                 <DetailsRow tech={"High Temperature (°C)"} value={row.HighTemperature} />
                 <DetailsRow tech={"Low Temperature (°C)"} value={row.LowTemperature} />
+                <DetailsRow tech={"Material Compliance"} value={row.FDACompliant?row.FDACompliant:row.NSF61?row.NSF61:''} />
             </Box>
         </section>
     )

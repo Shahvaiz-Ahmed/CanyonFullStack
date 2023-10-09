@@ -23,7 +23,7 @@ const Compiance = () => {
       if (material === 'NSF 61'){
         let newUrl = url.replace(/(\?|&)NSF61=[^&]*/g, "");
       newUrl = newUrl.replace(/(\?|&)offset=[^&]*/g, "");
-      setUrl(newUrl + `&NSF61=${material}`);
+      setUrl(newUrl + `&NSF61=NSF 61 Certified`);
       }
     }
     else if(!isChecked) {
