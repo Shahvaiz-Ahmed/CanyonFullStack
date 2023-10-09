@@ -47,7 +47,7 @@ const RightSide = () => {
                 <div></div>
             </div>
             {/* Table  */}
-            <div className='tableOuterStyle' style={{ position: "relative", overflowX: "hidden", overflowY: 'scroll', maxHeight: "90vh"}} >
+            <div className='tableOuterStyle' style={{ position: "relative", overflowX: "hidden", overflowY: 'scroll', maxHeight: "80vh"}} >
                 <table className="custom-table" style={{ width: "90vw" }}>
                     <thead style={{ zIndex: "1000" }} className='custom_header'>
                         <tr>
@@ -95,7 +95,7 @@ const RightSide = () => {
                             </th>
                         </tr>
                     </thead>
-                    <tbody style={{ height: "70vh", overflow: "scroll" }}>
+                    <tbody style={{ maxHeight: "70vh", overflow: "scroll" }}>
                         {data.map((item, index) => (
 
                             <React.Fragment key={item.id}>
